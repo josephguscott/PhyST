@@ -3,9 +3,11 @@
 import argparse
 import traceback
 
+from generate_trees import GenerateTrees
+
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument('--msa', type=str, help='input MSA in Phylp/Fasta/Nexus/Clustal format', required=True)
-PARSER.add_argument('--init-trees', type=int, help='the number of initial trees generated', default=5)
+PARSER.add_argument('--init-trees', type=int, help='the number of initial trees generated', default=100)
 PARSER.add_argument('--init-software', type=str, help='software used to generate initial trees', default='mpboot')
 
 args = vars(PARSER.parse_args())
@@ -13,13 +15,16 @@ MSA_PATH = args['msa']
 INIT_TREE_SIZE = args['init_trees']
 INIT_SOFTWARE = args['init_software']
 
-# generate init trees
-
 def main():
     try:
-        print(MSA_PATH)
-        print(INIT_TREE_SIZE)
-        print(INIT_SOFTWARE)
+        initial_trees = []
+        best_initial_trees = []
+
+        init_trees = GenerateTrees(INIT_SOFTWARE, MSA_PATH, INIT_TREE_SIZE)
+        initial_trees = init_trees.GenerateInitialTrees()
+
+        for i in range(len(initial_trees)):
+            print(initial_trees[i])
     
     except Exception as err:
         print(f"Unexpected {err}, {type(err)}")
