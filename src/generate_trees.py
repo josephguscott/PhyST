@@ -14,7 +14,7 @@ class GenerateTrees:
         self.init_tree_size = init_tree_size
 
     def GenerateInitialTrees(self):
-        parsimony_command = ParsimonyAnalysis.MPBootCommand(self, self.msa_path)
+        parsimony_command = ParsimonyAnalysis.generateParsimonyCommand(self, self.msa_path)
     
         init_trees = []
     

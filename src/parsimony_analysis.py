@@ -4,7 +4,7 @@ class ParsimonyAnalysis:
     def __init__(self) -> None:
         pass
 
-    def MPBootCommand(self, msa_path):
+    def generateParsimonyCommand(self, msa_path):
         software_path = "./lib/mpboot "
         pass_msa_path = "-s " + msa_path       
         parsimony_command = software_path + pass_msa_path
