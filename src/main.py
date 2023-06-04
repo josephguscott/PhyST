@@ -4,8 +4,10 @@ import argparse
 import time
 import traceback
 
+from evaluate_trees import EvaluateTrees
 from generate_trees import GenerateTrees
 from print import PhystPrint
+from utils import writeFile
 
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument('--msa', type=str, help='input MSA in Phylp/Fasta/Nexus/Clustal format', required=True)
@@ -33,10 +35,14 @@ def main():
         print("Generating initial trees...")
 
         init_trees = GenerateTrees(INIT_SOFTWARE, MSA_PATH, INIT_TREE_SIZE)
-        initial_trees = init_trees.GenerateInitialTrees()
+        initial_trees = init_trees.generateInitialTrees()
 
         for i in range(len(initial_trees)):
+            writeFile("parsimony.treefile", initial_trees[i])
             print(initial_trees[i])
+
+        evaluate_initial_trees = EvaluateTrees(MSA_PATH)
+        evaluate_initial_trees.getLikelihoodScores()
 
         program_end = time.time()
 
