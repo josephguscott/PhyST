@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import time
 import traceback
 
 from generate_trees import GenerateTrees
@@ -23,16 +24,26 @@ def main():
         initial_trees = []
         best_initial_trees = []
 
+        program_start = time.time()
+
         PhystPrint.printHeader()
 
         PhystPrint.printSoftwareConfig(INIT_SOFTWARE, MSA_PATH, INIT_TREE_SIZE, ML_SOFTWARE)
+
+        print("Generating initial trees...")
 
         init_trees = GenerateTrees(INIT_SOFTWARE, MSA_PATH, INIT_TREE_SIZE)
         initial_trees = init_trees.GenerateInitialTrees()
 
         for i in range(len(initial_trees)):
             print(initial_trees[i])
-    
+
+        program_end = time.time()
+
+        runtime = program_end - program_start
+        print("")
+        print("Wall-clock time : ", time.strftime("%H:%M:%S:", time.gmtime(runtime)))
+            
     except Exception as err:
         print(f"Unexpected {err}, {type(err)}")
         traceback.print_tb(err.__traceback__)
