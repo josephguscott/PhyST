@@ -1,6 +1,3 @@
-import os
-from multiprocessing import Pool
-
 from parsimony_analysis import ParsimonyAnalysis
 
 class GenerateTrees:
