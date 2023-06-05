@@ -14,8 +14,7 @@ class TreeScores:
         best_scores = []
 
         with open(file, "r") as fp:
-            # for line in self.lines_that_start_with("Tree ", fp):
-            for line in fp: 
+            for line in fp:
                 if line.startswith("Tree "):
                     all_trees.append(line)
                     score = line.split()
@@ -52,7 +51,7 @@ class TreeScores:
 
     def GetBestTrees(self, best_trees_number):
         # needs refactoring
-        file = "parsimony.treefile"
+        file = "initial_trees.treefile"
 
         line_numbers = []
         lines = []
@@ -64,14 +63,13 @@ class TreeScores:
             x = linecache.getline(file, i).strip()
             lines.append(x)
 
-        with open('parsimony.treefile_best_all', 'w') as fp:
+        with open('initial_trees_best.treefile', 'w') as fp:
             for i in lines:
                 fp.write("%s\n" % i)
 
         for i in range(5):
             j = str(i + 1)
-            file_name = "parsimony.treefile_best_"
-            file_name = file_name + j
+            file_name = "initial_trees_best_" + j + ".treefile"
 
             with open(file_name, 'w') as fp:
                 fp.write("%s\n" % lines[i])

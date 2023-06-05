@@ -28,7 +28,7 @@ class EvaluateTrees:
     def generateEvaluateTreesCommand(self):
         iqtree_path = "./lib/iqtree "
         pass_msa = "-s " + self.msa_path
-        pass_treefile = " -z parsimony.treefile"
+        pass_treefile = " -z initial_trees.treefile"
         no_search = " -n 0"
         redo = " -redo" 
 

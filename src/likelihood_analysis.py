@@ -17,7 +17,7 @@ def ParseLikelihoodCommandLineOptions():
 def GenerateLikelihoodCommand(args):
     iqtree_path = "./lib/iqtree "
     pass_msa = "-s " + args.msa
-    pass_treefile = " -t parsimony.treefile.best"
+    pass_treefile = " -t initial_trees_best.treefile"
     redo = " -redo" 
 
     likelihood_command = iqtree_path + pass_msa + pass_treefile + redo
