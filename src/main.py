@@ -37,10 +37,6 @@ def main():
         init_trees = GenerateTrees(INIT_SOFTWARE, MSA_PATH, INIT_TREE_SIZE)
         initial_trees = init_trees.generateInitialTrees()
 
-        for i in range(len(initial_trees)):
-            writeFile("parsimony.treefile", initial_trees[i])
-            print(initial_trees[i])
-
         evaluate_initial_trees = EvaluateTrees(MSA_PATH)
         evaluate_initial_trees.getLikelihoodScores()
 

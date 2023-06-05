@@ -1,6 +1,8 @@
 import os
 
-class EvaluateTrees():
+from tree_scores import TreeScores
+
+class EvaluateTrees:
     def __init__(self,
                  msa_path) -> None:
         
@@ -10,6 +12,17 @@ class EvaluateTrees():
         evaluate_command = self.generateEvaluateTreesCommand()
 
         os.system(evaluate_command)
+
+        best_scores = TreeScores.GetBestTreeScores(self, self.msa_path)
+
+        best_trees_number = TreeScores.GetBestTreesNumber(self, self.msa_path, best_scores)
+
+        print("Highest scoring likelihood trees:")
+
+        for i in range(len(best_trees_number)):
+            print("  Tree", best_trees_number[i], ":", best_scores[i])
+
+        best_trees =TreeScores.GetBestTrees(self, best_trees_number)
 
 
     def generateEvaluateTreesCommand(self):
