@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
 import argparse
+import os
 import time
 import traceback
 
 from evaluate_trees import EvaluateTrees
 from generate_trees import GenerateTrees
+from likelihood_analysis import GenerateLikelihoodCommand
 from print import PhystPrint
 from utils import writeFile
 
@@ -42,6 +44,13 @@ def main():
 
         evaluate_initial_trees = EvaluateTrees(MSA_PATH)
         evaluate_initial_trees.getLikelihoodScores()
+
+        ML_command = GenerateLikelihoodCommand(MSA_PATH)
+        print(ML_command)
+        for i in range(len(ML_command)):
+            os.system(ML_command[i])
+
+        print("Likelihood tree printed to {}.treefile".format(MSA_PATH))
 
         program_end = time.time()
 
