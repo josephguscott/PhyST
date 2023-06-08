@@ -6,7 +6,7 @@ import time
 import traceback
 
 from evaluate_trees import EvaluateTrees
-from generate_trees import GenerateTrees
+from generate_initial_trees import GenerateTrees
 from likelihood_analysis import GenerateLikelihoodCommand
 from print import PhystPrint
 from utils import writeFile
@@ -39,8 +39,7 @@ def main():
         init_trees = GenerateTrees(INIT_SOFTWARE, MSA_PATH, INIT_TREE_SIZE)
         initial_trees = init_trees.generateInitialTrees()
 
-        for i in range(len(initial_trees)):
-            writeFile("initial_trees.treefile", initial_trees[i])
+        GenerateTrees.writeInitialTrees(initial_trees)
 
         evaluate_initial_trees = EvaluateTrees(MSA_PATH)
         evaluate_initial_trees.getLikelihoodScores()
