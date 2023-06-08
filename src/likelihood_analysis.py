@@ -1,46 +1,17 @@
-import os
-import time
-import argparse
+def GenerateLikelihoodCommand(msa_path):
+    likelihood_commands = []
 
-from print import *
+    for i in range(1,6):
+        iqtree_path = "./lib/iqtree "
+        pass_msa = "-s " + msa_path
+        pass_treefile = " -t initial_trees_best_{}.treefile".format(i)
+        prefix = " = pre best_tree_{}.treefile".format(i)
+        redo = " -redo" 
 
-# likelihood_analysis.py functions
+        likelihood_command = iqtree_path + pass_msa + pass_treefile + prefix + redo
 
-def ParseLikelihoodCommandLineOptions():
-    parser = argparse.ArgumentParser()
+        likelihood_command = likelihood_command + " > /dev/null 2>&1"
 
-    parser.add_argument("--msa", metavar='<MSA>', type=str, help = 'input MSA in Phylp/Fasta/Nexus/Clustal format', required=True)
-    args = parser.parse_args()
+        likelihood_commands.append(likelihood_command)
 
-    return args
-
-def GenerateLikelihoodCommand(args):
-    iqtree_path = "./lib/iqtree "
-    pass_msa = "-s " + args.msa
-    pass_treefile = " -t parsimony.treefile.best"
-    redo = " -redo" 
-
-    likelihood_command = iqtree_path + pass_msa + pass_treefile + redo
-
-    likelihood_command = likelihood_command + " > /dev/null 2>&1"
-
-    return likelihood_command
-
-# likelihood_analysis.py script
-
-args = ParseLikelihoodCommandLineOptions()
-
-likelihood_command = GenerateLikelihoodCommand(args)
-
-start = time.time()
-
-os.system(likelihood_command)
-
-end = time.time()
-
-runtime = end - start
-
-print("")
-print("IQ-Tree complete!")
-
-print("Wall-clock time : ", time.strftime("%H:%M:%S:", time.gmtime(runtime)))
+    return likelihood_commands

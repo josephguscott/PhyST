@@ -1,5 +1,7 @@
 import os
 
+from utils import readFile
+
 class ParsimonyAnalysis:
     def __init__(self) -> None:
         pass
@@ -15,8 +17,6 @@ class ParsimonyAnalysis:
     def getTree(self, parsimony_command):
         os.system(parsimony_command)
 
-        with open(self.msa_path + ".treefile") as treefile:
-            for line in treefile:
-                initial_tree = line
+        initial_tree = readFile(self.msa_path + ".treefile")
 
         return initial_tree
