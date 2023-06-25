@@ -43,7 +43,7 @@ def main():
         filterInitialTrees(MSA_PATH)
 
         # refine initial trees using maximum likelihood
-        refineInitialTrees(MSA_PATH, 5)
+        refineInitialTrees(MSA_PATH)
 
         #TODO
         # concatenate all best_tree_[i].treefile
