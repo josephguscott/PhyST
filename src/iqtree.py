@@ -1,4 +1,4 @@
-def iqtreeEvaluateTreesCommand(msa_path):
+def iqtreeEvaluateTreesCommand(msa_path: str) -> str:
         iqtree_path = "./lib/iqtree "
         pass_msa = "-s " + msa_path
         pass_treefile = " -z initial_trees.treefile"
@@ -10,7 +10,7 @@ def iqtreeEvaluateTreesCommand(msa_path):
 
         return evaulate_tree_command
 
-def iqtreeLikelihoodAnalysis(msa_path):
+def iqtreeLikelihoodAnalysis(msa_path: str) -> list:
     likelihood_commands = []
 
     for i in range(1,6):

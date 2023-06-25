@@ -9,6 +9,6 @@ def refineInitialTrees(msa_path:str, number_initial_trees: int):
     for i in range(0, number_initial_trees):
         os.system(refine_tree_command[i])
 
-    
+
     
     # print("Likelihood tree printed to {}.treefile".format(msa_path))

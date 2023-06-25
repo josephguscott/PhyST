@@ -13,7 +13,7 @@ def printHeader():
         print("University of Edinburgh")
         print("Copyright (c) 2023 Joseph Guscott")
 
-def printSoftwareConfig(initial_software, msa_path, number_initial_trees, refinement_software):
+def printSoftwareConfig(initial_software: str, msa_path: str, number_initial_trees: int, refinement_software: str):
         print("===============================")
         print("PHYST configuration:")
         print("  Initial Trees")
