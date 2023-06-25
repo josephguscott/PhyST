@@ -46,8 +46,6 @@ def main():
         refineInitialTrees(MSA_PATH)
 
         #TODO
-        # concatenate all best_tree_[i].treefile
-        # evaluate all trees
         # return best
         # type hinting
 
