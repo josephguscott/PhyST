@@ -5,11 +5,12 @@ import os
 import time
 import traceback
 
-from evaluate_trees import EvaluateTrees
-from generate_trees import GenerateTrees
-from likelihood_analysis import GenerateLikelihoodCommand
-from print import PhystPrint
-from utils import writeFile
+from filter_initial_trees import filterInitialTrees
+from generate_initial_trees import generateInitialTrees
+from generate_initial_trees import writeInitialTrees
+from refine_trees import refineInitialTrees
+from print import printHeader
+from print import printSoftwareConfig
 
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument('--msa', type=str, help='input MSA in Phylp/Fasta/Nexus/Clustal format', required=True)
@@ -26,31 +27,29 @@ ML_SOFTWARE = args['ml_software']
 def main():
     try:
         initial_trees = []
-        best_initial_trees = []
 
         program_start = time.time()
 
-        PhystPrint.printHeader()
+        printHeader()
+        printSoftwareConfig(INIT_SOFTWARE, MSA_PATH, INIT_TREE_SIZE, ML_SOFTWARE)
 
-        PhystPrint.printSoftwareConfig(INIT_SOFTWARE, MSA_PATH, INIT_TREE_SIZE, ML_SOFTWARE)
-
+        # currently only uses MPBoot
         print("Generating initial trees...")
+        initial_trees = generateInitialTrees(INIT_SOFTWARE, MSA_PATH, INIT_TREE_SIZE)
+        writeInitialTrees(initial_trees)
 
-        init_trees = GenerateTrees(INIT_SOFTWARE, MSA_PATH, INIT_TREE_SIZE)
-        initial_trees = init_trees.generateInitialTrees()
+        # uses IQ-Tree to filter initial trees based on likelihood scores
+        print("Obtaining the best {} initial trees".format("5"))
+        filterInitialTrees(MSA_PATH)
 
-        for i in range(len(initial_trees)):
-            writeFile("initial_trees.treefile", initial_trees[i])
+        # refine initial trees using maximum likelihood
+        refineInitialTrees(MSA_PATH, 5)
 
-        evaluate_initial_trees = EvaluateTrees(MSA_PATH)
-        evaluate_initial_trees.getLikelihoodScores()
-
-        ML_command = GenerateLikelihoodCommand(MSA_PATH)
-        print(ML_command)
-        for i in range(len(ML_command)):
-            os.system(ML_command[i])
-
-        print("Likelihood tree printed to {}.treefile".format(MSA_PATH))
+        #TODO
+        # concatenate all best_tree_[i].treefile
+        # evaluate all trees
+        # return best
+        # type hinting
 
         program_end = time.time()
 
