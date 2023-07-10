@@ -5,6 +5,8 @@ import os
 import time
 import traceback
 
+from multiprocessing import cpu_count
+
 from filter_initial_trees import filterInitialTrees
 from generate_initial_trees import generateInitialTrees
 from generate_initial_trees import writeInitialTrees
@@ -27,6 +29,7 @@ ML_SOFTWARE = args['ml_software']
 def main():
     try:
         initial_trees = []
+        available_processors = cpu_count()
 
         program_start = time.time()
 
@@ -34,7 +37,7 @@ def main():
         printSoftwareConfig(INIT_SOFTWARE, MSA_PATH, INIT_TREE_SIZE, ML_SOFTWARE)
 
         # currently only uses MPBoot
-        print("Generating initial trees...")
+        print("Generating initial {} initial trees using {} processors".format(INIT_TREE_SIZE, available_processors))
         initial_trees = generateInitialTrees(INIT_SOFTWARE, MSA_PATH, INIT_TREE_SIZE)
         writeInitialTrees(initial_trees)
 
@@ -43,19 +46,16 @@ def main():
         filterInitialTrees(MSA_PATH)
 
         # refine initial trees using maximum likelihood
-        refineInitialTrees(MSA_PATH, 5)
-
-        #TODO
-        # concatenate all best_tree_[i].treefile
-        # evaluate all trees
-        # return best
-        # type hinting
+        refineInitialTrees(MSA_PATH)
 
         program_end = time.time()
 
         runtime = program_end - program_start
         print("")
-        print("Wall-clock time : ", time.strftime("%H:%M:%S:", time.gmtime(runtime)))
+        print("Wall-clock time : ", time.strftime("%H:%M:%S", time.gmtime(runtime)))
+
+        # remove old files
+        os.system("rm tree.* initial_trees* best_tree.treefile parsimony.treefile")
             
     except Exception as err:
         print(f"Unexpected {err}, {type(err)}")
