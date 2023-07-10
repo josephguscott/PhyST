@@ -53,7 +53,7 @@ def main():
 
         runtime = program_end - program_start
         print("")
-        print("Wall-clock time : ", time.strftime("%H:%M:%S:", time.gmtime(runtime)))
+        print("Wall-clock time : ", time.strftime("%H:%M:%S", time.gmtime(runtime)))
             
     except Exception as err:
         print(f"Unexpected {err}, {type(err)}")
