@@ -10,6 +10,7 @@ def printHeader():
         print("PHYST (v 1.0)")
         print("Developed by Joseph Guscott,")
         print("Barker Lab,")
+        print("School of Biological Science")
         print("University of Edinburgh")
         print("Copyright (c) 2023 Joseph Guscott")
 
