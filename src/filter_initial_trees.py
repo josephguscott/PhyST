@@ -7,6 +7,7 @@ from iqtree import iqtreeEvaluateTreesCommand
 def filterInitialTrees(msa_path: str):
         evaluate_command = iqtreeEvaluateTreesCommand(msa_path)
         os.system(evaluate_command)
+        best_trees_dict = getBestTreesDictionary(msa_path)
         best_scores = identifyBestTrees(msa_path)
         best_trees_number = identifyTreeNumber(msa_path, best_scores)
         print("Highest scoring likelihood trees:")
@@ -15,6 +16,22 @@ def filterInitialTrees(msa_path: str):
             print("  Tree", best_trees_number[i], ":", best_scores[i])
 
         writeBestInitialTreesFile(best_trees_number)
+
+def getBestTreesDictionary(msa_path: str) -> dict:
+    file = msa_path + ".log"
+    best_trees_dict = {}
+
+    with open(file, "r") as fp:
+        for line in fp:
+            if line.startswith("Tree "):
+                tree_line = line.split()
+                tree = "Tree " + tree_line[1]
+                score = tree_line[-1]
+                best_trees_dict[tree] = score
+
+    print(best_trees_dict)
+
+    return best_trees_dict
 
 def identifyBestTrees(msa_path: str) -> list:
     # needs refactoring
