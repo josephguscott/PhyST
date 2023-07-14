@@ -14,7 +14,7 @@ def printHeader():
         print("University of Edinburgh")
         print("Copyright (c) 2023 Joseph Guscott")
 
-def printSoftwareConfig(initial_software: str, msa_path: str, number_initial_trees: int, refinement_software: str):
+def printSoftwareConfig(initial_software: str, msa_path: str, number_initial_trees: int, refinement_software: str, time_stamp: str):
         print("===============================")
         print("PHYST configuration:")
         print("  Initial Trees")
@@ -25,6 +25,8 @@ def printSoftwareConfig(initial_software: str, msa_path: str, number_initial_tre
         print("")
         print("  Likelihood Analysis")
         print("    Software:", refinement_software)
+        print("")
+        print("Start time: ", time_stamp)
         print("")
         print("MPBoot provided by Hoang, et al., 2018; https://doi.org/10.1186/s12862-018-1131-3")
         print("IQ-Tree provided by Minh, et al., 2020; https://doi.org/10.1093/molbev/msaa015")
