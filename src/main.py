@@ -5,6 +5,7 @@ import os
 import time
 import traceback
 
+from datetime import datetime
 from multiprocessing import cpu_count
 
 from filter_initial_trees import filterInitialTrees
@@ -25,6 +26,7 @@ MSA_PATH = args['msa']
 INIT_TREE_SIZE = args['init_trees']
 INIT_SOFTWARE = args['init_software']
 ML_SOFTWARE = args['ml_software']
+TIMESTAMP = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
 
 def main():
     try:
@@ -34,7 +36,7 @@ def main():
         program_start = time.time()
 
         printHeader()
-        printSoftwareConfig(INIT_SOFTWARE, MSA_PATH, INIT_TREE_SIZE, ML_SOFTWARE)
+        printSoftwareConfig(INIT_SOFTWARE, MSA_PATH, INIT_TREE_SIZE, ML_SOFTWARE, TIMESTAMP)
 
         # currently only uses MPBoot
         print("Generating initial {} initial trees using {} processors".format(INIT_TREE_SIZE, available_processors))
@@ -55,7 +57,7 @@ def main():
         print("Wall-clock time : ", time.strftime("%H:%M:%S", time.gmtime(runtime)))
 
         # remove old files
-        os.system("rm tree.* initial_trees* best_tree.treefile parsimony.treefile")
+        os.system("rm tree.* initial_trees_* initial_trees.treefile best_tree.treefile parsimony.treefile")
             
     except Exception as err:
         print(f"Unexpected {err}, {type(err)}")
