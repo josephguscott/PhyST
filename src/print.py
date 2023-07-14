@@ -30,3 +30,7 @@ def printSoftwareConfig(initial_software: str, msa_path: str, number_initial_tre
         print("IQ-Tree provided by Minh, et al., 2020; https://doi.org/10.1093/molbev/msaa015")
         print("===============================")
         print("")
+
+def printDictionary(dictionary: dict):
+       for key in dictionary:
+                print (key,':',dictionary[key])

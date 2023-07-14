@@ -19,3 +19,4 @@ def refineInitialTrees(msa_path:str):
 
     print("")
     print("Refined ML tree score: {}Refined ML treefile: {}".format(best_score[-1], treefile))
+    print("Best starting trees: initial_trees_best.treefile")
