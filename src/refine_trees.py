@@ -2,11 +2,11 @@ import os
 
 from iqtree import iqtreeLikelihoodAnalysis
 
-def refineInitialTrees(msa_path:str):
+def refineInitialTrees(msa_path: str, cores: int):
     treefile = msa_path + ".treefile"
     logfile = msa_path + ".log"
 
-    refine_tree_command = iqtreeLikelihoodAnalysis(msa_path)
+    refine_tree_command = iqtreeLikelihoodAnalysis(msa_path, cores)
     os.system(refine_tree_command)
 
     with open(logfile, "r") as fp:
