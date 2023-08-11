@@ -9,11 +9,10 @@ from datetime import datetime
 from multiprocessing import cpu_count
 
 from filter_initial_trees import filterInitialTrees
-from generate_initial_trees import generateInitialTrees
-from generate_initial_trees import writeInitialTrees
+from generate_initial_trees import generateInitialTrees, writeInitialTrees
 from refine_trees import refineInitialTrees
-from print import printHeader
-from print import printSoftwareConfig
+from log import Log, LOG
+from print import printHeader, printSoftwareConfig
 
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument('--msa', type=str, help='input MSA in Phylp/Fasta/Nexus/Clustal format', required=True)
@@ -58,10 +57,10 @@ def main():
         print("Wall-clock time : ", time.strftime("%H:%M:%S", time.gmtime(runtime)))
 
         # remove old files
-        os.system("rm tree.* initial_trees_* initial_trees.treefile best_tree.treefile parsimony.treefile")
+        os.system("rm tree.* initial_trees_* initial_trees.treefile parsimony.treefile")
             
     except Exception as err:
-        print(f"Unexpected {err}, {type(err)}")
+        LOG.critical(f"{type(err).__name__}: {err}")
         traceback.print_tb(err.__traceback__)
         exit(1)
 
