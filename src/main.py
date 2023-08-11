@@ -20,14 +20,19 @@ PARSER.add_argument('--init-trees', type=int, help='the number of initial trees 
 PARSER.add_argument('--init-software', type=str, help='software used to generate initial trees', default='mpboot')
 PARSER.add_argument('--ml-software', type=str, help='software used to generate ML trees', default='iqtree')
 PARSER.add_argument('--parallel', type=int, help='number of cores to be used', default=1)
+PARSER.add_argument('--max-parallel', type=bool, help='run PHYST using maximum resources', action=argparse.BooleanOptionalAction, default=False)
 
 args = vars(PARSER.parse_args())
 MSA_PATH = args['msa']
 INIT_TREE_SIZE = args['init_trees']
 INIT_SOFTWARE = args['init_software']
 ML_SOFTWARE = args['ml_software']
-HARDWARE = args['parallel']
 TIMESTAMP = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
+
+if args['max_parallel'] is True:
+    HARDWARE = cpu_count()
+else:
+    HARDWARE = args['parallel']
 
 def main():
     try:
