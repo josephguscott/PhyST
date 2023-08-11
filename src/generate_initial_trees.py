@@ -6,20 +6,14 @@ from multiprocessing.pool import Pool
 from utils import readFile
 from utils import writeFile
 
-def generateInitialTrees(initial_software: str, msa_path: str, number_initial_trees: int) -> list:
+def generateInitialTrees(initial_software: str, msa_path: str, number_initial_trees: int, cores: int) -> list:
     initial_trees = []
     tree_number = 0
     
     parsimony_command = generateMPBootCommand(initial_software, msa_path)
 
-    #for tree in range(number_initial_trees):
-    #    print("generating parsimony tree {}".format(tree))
-    #    os.system(parsimony_command)
-    #    initial_tree = readFile(msa_path + ".treefile")
-    #    initial_trees.append(initial_tree)
-
     # generate initial trees in parallel 
-    with Pool() as pool:
+    with Pool(processes = cores) as pool:
         items =[(parsimony_command, i) for i in range(number_initial_trees)]
         pool.starmap(parallelGenerateTrees, items)
 

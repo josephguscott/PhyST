@@ -5,8 +5,8 @@ import linecache
 from iqtree import iqtreeEvaluateTreesCommand
 from print import printDictionary
 
-def filterInitialTrees(msa_path: str):
-        evaluate_command = iqtreeEvaluateTreesCommand(msa_path)
+def filterInitialTrees(msa_path: str, cores: int):
+        evaluate_command = iqtreeEvaluateTreesCommand(msa_path, cores)
         os.system(evaluate_command)
         best_trees_dict = getBestTreesDictionary(msa_path)
 

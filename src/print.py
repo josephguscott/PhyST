@@ -14,7 +14,7 @@ def printHeader():
         print("University of Edinburgh")
         print("Copyright (c) 2023 Joseph Guscott")
 
-def printSoftwareConfig(initial_software: str, msa_path: str, number_initial_trees: int, refinement_software: str, time_stamp: str):
+def printSoftwareConfig(initial_software: str, msa_path: str, number_initial_trees: int, refinement_software: str, time_stamp: str, cores: int):
         print("===============================")
         print("PHYST configuration:")
         print("  Initial Trees")
@@ -25,6 +25,9 @@ def printSoftwareConfig(initial_software: str, msa_path: str, number_initial_tre
         print("")
         print("  Likelihood Analysis")
         print("    Software:", refinement_software)
+        print("")
+        print("  Resources")
+        print("    Cores:", cores)
         print("")
         print("Start time: ", time_stamp)
         print("")
