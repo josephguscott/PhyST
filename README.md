@@ -23,7 +23,7 @@ Both binaries are required within the 'lib/' folder.
 
 Currently, PHYST is ran using the following command:
 ~~~~
-python3.11 src/main --msa <msa>
+python3.11 src/main.py --msa <msa>
 ~~~~
 
 ### Command-line options
