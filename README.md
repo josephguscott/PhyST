@@ -43,6 +43,12 @@ or using maximum cores:
 --max-parallel
 ~~~~
 
+Command-line options can be passed directly to IQ-Tree through PHYST:
+~~~
+-iqtree-options '<options>'
+~~~
+With options to be passed enclosed by quotations.
+
 ## Version
 The current release of PHYST is v1.0.
 

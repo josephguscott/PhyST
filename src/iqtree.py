@@ -10,15 +10,18 @@ def iqtreeEvaluateTreesCommand(msa_path: str, cores: int) -> str:
 
         return evaulate_tree_command
 
-def iqtreeLikelihoodAnalysis(msa_path: str, cores: int) -> str:
+def iqtreeLikelihoodAnalysis(msa_path: str, cores: int, iqtree_options: str) -> str:
     likelihood_command = ""
     
     iqtree_path = "./lib/iqtree "
     pass_msa = "-s " + msa_path
     pass_treefile = " -t initial_trees_best.treefile"
     parallel = " -nt " + str(cores)
+    user_options = " " + iqtree_options
 
-    likelihood_command = iqtree_path + pass_msa + pass_treefile + parallel
+    likelihood_command = iqtree_path + pass_msa + pass_treefile + parallel + user_options       
     likelihood_command = likelihood_command + " > /dev/null 2>&1"
+
+    print(likelihood_command)
 
     return likelihood_command

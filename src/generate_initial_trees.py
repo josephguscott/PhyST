@@ -26,11 +26,11 @@ def generateInitialTrees(initial_software: str, msa_path: str, number_initial_tr
 
     return initial_trees
 
-def writeInitialTrees(initial_trees: list):
+def writeInitialTrees(initial_trees: list) -> None:
     for i in range(len(initial_trees)):
         writeFile("initial_trees.treefile", initial_trees[i])
 
-def parallelGenerateTrees(parsimony_command: str, tree_number: int):
+def parallelGenerateTrees(parsimony_command: str, tree_number: int) -> None:
     loop_parsimony_command = parsimony_command + " -pre tree." + str(tree_number)
     loop_parsimony_command = loop_parsimony_command + " > /dev/null 2>&1"
     os.system(loop_parsimony_command)

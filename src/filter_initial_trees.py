@@ -5,7 +5,7 @@ import linecache
 from iqtree import iqtreeEvaluateTreesCommand
 from print import printDictionary
 
-def filterInitialTrees(msa_path: str, cores: int):
+def filterInitialTrees(msa_path: str, cores: int) -> None:
         evaluate_command = iqtreeEvaluateTreesCommand(msa_path, cores)
         os.system(evaluate_command)
         best_trees_dict = getBestTreesDictionary(msa_path)
@@ -36,7 +36,7 @@ def getBestTreesDictionary(msa_path: str) -> dict:
 
     return best_trees_dict
 
-def writeBestInitialTreesFile(best_trees_number: dict):
+def writeBestInitialTreesFile(best_trees_number: dict) -> None:
     # needs refactoring
     file = "initial_trees.treefile"
     line_numbers = []
