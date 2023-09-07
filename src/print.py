@@ -1,8 +1,8 @@
-def printStartup(initial_software, msa_path, number_initial_trees, refinement_software):
+def printStartup(initial_software, msa_path, number_initial_trees, refinement_software) -> None:
         printHeader()
         printSoftwareConfig(initial_software, msa_path, number_initial_trees, refinement_software)
 
-def printHeader():
+def printHeader() -> None:
         print("===============================")
         print("  PHYST Phylogenetic Pipeline  ")
         print("===============================")
@@ -14,7 +14,7 @@ def printHeader():
         print("University of Edinburgh")
         print("Copyright (c) 2023 Joseph Guscott")
 
-def printSoftwareConfig(initial_software: str, msa_path: str, number_initial_trees: int, refinement_software: str, time_stamp: str, cores: int):
+def printSoftwareConfig(initial_software: str, msa_path: str, number_initial_trees: int, refinement_software: str, time_stamp: str, cores: int) -> None:
         print("===============================")
         print("PHYST configuration:")
         print("  Initial Trees")
@@ -36,6 +36,6 @@ def printSoftwareConfig(initial_software: str, msa_path: str, number_initial_tre
         print("===============================")
         print("")
 
-def printDictionary(dictionary: dict):
+def printDictionary(dictionary: dict) -> None:
        for key in dictionary:
                 print (key,':',dictionary[key])
