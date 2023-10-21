@@ -3,7 +3,7 @@ import itertools
 import linecache
 
 from iqtree import iqtreeEvaluateTreesCommand
-from print import printDictionary
+from print import Print
 
 def filterInitialTrees(msa_path: str, cores: int) -> None:
         evaluate_command = iqtreeEvaluateTreesCommand(msa_path, cores)
@@ -14,7 +14,8 @@ def filterInitialTrees(msa_path: str, cores: int) -> None:
 
         print("Highest scoring likelihood trees:")
 
-        printDictionary(best_tree_numbers)
+        # call staticmethod from Print class
+        Print.printDictionary(best_tree_numbers)
 
         writeBestInitialTreesFile(best_tree_numbers)
 
