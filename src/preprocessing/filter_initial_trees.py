@@ -2,23 +2,24 @@ import os
 import itertools
 import linecache
 
-from iqtree import iqtreeEvaluateTreesCommand
-from print import printDictionary
+from software.iqtree import IqtreeEvaluateTreesCommand
+from print import Print
 
-def filterInitialTrees(msa_path: str, cores: int) -> None:
-        evaluate_command = iqtreeEvaluateTreesCommand(msa_path, cores)
+def FilterInitialTrees(msa_path: str, cores: int) -> None:
+        evaluate_command = IqtreeEvaluateTreesCommand(msa_path, cores)
         os.system(evaluate_command)
-        best_trees_dict = getBestTreesDictionary(msa_path)
+        best_trees_dict = GetBestTreesDictionary(msa_path)
 
         best_tree_numbers = dict(itertools.islice(best_trees_dict.items(), 5))
 
         print("Highest scoring likelihood trees:")
 
-        printDictionary(best_tree_numbers)
+        # call staticmethod from Print class
+        Print.PrintDictionary(best_tree_numbers)
 
-        writeBestInitialTreesFile(best_tree_numbers)
+        WriteBestInitialTreesFile(best_tree_numbers)
 
-def getBestTreesDictionary(msa_path: str) -> dict:
+def GetBestTreesDictionary(msa_path: str) -> dict:
     file = msa_path + ".log"
     best_trees_dict = {}
 
@@ -36,7 +37,7 @@ def getBestTreesDictionary(msa_path: str) -> dict:
 
     return best_trees_dict
 
-def writeBestInitialTreesFile(best_trees_number: dict) -> None:
+def WriteBestInitialTreesFile(best_trees_number: dict) -> None:
     # needs refactoring
     file = "initial_trees.treefile"
     line_numbers = []
