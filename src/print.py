@@ -13,11 +13,11 @@ class Print:
                 self.time_stamp = time_stamp
                 self.cores = cores
 
-        def printStartup(self) -> None:
-                self.__printHeader()
-                self.__printSoftwareConfig()
+        def PrintStartup(self) -> None:
+                self.__PrintHeader()
+                self.__PrintSoftwareConfig()
 
-        def __printHeader(self) -> None:
+        def __PrintHeader(self) -> None:
                 print("===============================")
                 print("  PHYST Phylogenetic Pipeline  ")
                 print("===============================")
@@ -29,7 +29,7 @@ class Print:
                 print("University of Edinburgh")
                 print("Copyright (c) 2023 Joseph Guscott")
 
-        def __printSoftwareConfig(self) -> None:
+        def __PrintSoftwareConfig(self) -> None:
                 print("===============================")
                 print("PHYST configuration:")
                 print("  Initial Trees")
@@ -52,10 +52,10 @@ class Print:
                 print("")
 
         @staticmethod
-        def printDictionary(dictionary: dict) -> None:
+        def PrintDictionary(dictionary: dict) -> None:
                 for key in dictionary:
                         print (key,':',dictionary[key])
 
         @staticmethod
-        def printRuntime(program_runtime) -> None:
+        def PrintRuntime(program_runtime) -> None:
                 print("\nWall-clock time : ", time.strftime("%H:%M:%S", time.gmtime(program_runtime))) 
