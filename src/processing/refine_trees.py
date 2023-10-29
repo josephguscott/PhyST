@@ -1,6 +1,6 @@
 import os
 
-from iqtree import IqtreeLikelihoodAnalysis
+from software.iqtree import IqtreeLikelihoodAnalysis
 
 def RefineInitialTrees(msa_path: str, cores: int, iqtree_options: str) -> None:
     treefile = msa_path + ".treefile"

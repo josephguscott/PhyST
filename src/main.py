@@ -8,10 +8,10 @@ import traceback
 from datetime import datetime
 from multiprocessing import cpu_count
 
-from refine_trees import RefineInitialTrees
-from log import Log, LOG
+from log import LOG
 from print import Print
 from preprocessing.preprocessing import Preprocessing
+from processing.processing import Processing
 
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument('--msa', type=str, help='input MSA in Phylp/Fasta/Nexus/Clustal format', required=True)
@@ -41,6 +41,7 @@ def main():
 
         PhystPrint = Print(INIT_SOFTWARE, MSA_PATH, INIT_TREE_SIZE, ML_SOFTWARE, TIMESTAMP, HARDWARE)
         PhystPreprocessing = Preprocessing(INIT_TREE_SIZE, HARDWARE, INIT_SOFTWARE, MSA_PATH)
+        PhystProcessing = Processing(HARDWARE, MSA_PATH, IQ_TREE_OPTIONS)
 
         PhystPrint.PrintStartup()
 
@@ -48,8 +49,8 @@ def main():
         PhystPreprocessing.GenerateStartingTrees()
         PhystPreprocessing.FilterStartingTrees()
 
-        # refine initial trees using maximum likelihood
-        RefineInitialTrees(MSA_PATH, HARDWARE, IQ_TREE_OPTIONS)
+        # refine initial trees using IQ-Tree
+        PhystProcessing.RefineStartingTrees()
 
         program_end = time.time()
 
