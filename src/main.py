@@ -8,11 +8,10 @@ import traceback
 from datetime import datetime
 from multiprocessing import cpu_count
 
-from filter_initial_trees import filterInitialTrees
-from generate_initial_trees import generateInitialTrees, writeInitialTrees
-from refine_trees import refineInitialTrees
+from refine_trees import RefineInitialTrees
 from log import Log, LOG
 from print import Print
+from preprocessing.preprocessing import Preprocessing
 
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument('--msa', type=str, help='input MSA in Phylp/Fasta/Nexus/Clustal format', required=True)
@@ -38,29 +37,24 @@ else:
 
 def main():
     try:
-        initial_trees = []
-
         program_start = time.time()
 
         PhystPrint = Print(INIT_SOFTWARE, MSA_PATH, INIT_TREE_SIZE, ML_SOFTWARE, TIMESTAMP, HARDWARE)
-        PhystPrint.printStartup()
+        PhystPreprocessing = Preprocessing(INIT_TREE_SIZE, HARDWARE, INIT_SOFTWARE, MSA_PATH)
 
-        # currently only uses MPBoot
-        print("Generating initial {} initial trees using {} cores".format(INIT_TREE_SIZE, HARDWARE))
-        initial_trees = generateInitialTrees(INIT_SOFTWARE, MSA_PATH, INIT_TREE_SIZE, HARDWARE)
-        writeInitialTrees(initial_trees)
+        PhystPrint.PrintStartup()
 
-        # uses IQ-Tree to filter initial trees based on likelihood scores
-        print("Obtaining the best {} initial trees".format("5"))
-        filterInitialTrees(MSA_PATH, HARDWARE)
+        # generate starting trees, currently only uses MPBoot
+        PhystPreprocessing.GenerateStartingTrees()
+        PhystPreprocessing.FilterStartingTrees()
 
         # refine initial trees using maximum likelihood
-        refineInitialTrees(MSA_PATH, HARDWARE, IQ_TREE_OPTIONS)
+        RefineInitialTrees(MSA_PATH, HARDWARE, IQ_TREE_OPTIONS)
 
         program_end = time.time()
 
         runtime = program_end - program_start
-        Print.printRuntime(runtime)
+        Print.PrintRuntime(runtime)
 
         # remove old files
         os.system("rm tree.* initial_trees_* initial_trees.treefile parsimony.treefile")
