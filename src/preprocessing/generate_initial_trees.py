@@ -16,8 +16,8 @@ import os
 from software.mpboot import GenerateMPBootCommand
 from multiprocessing.pool import Pool
 
-from utils.utils import ReadFile
-from utils.utils import WriteFile
+from utils import ReadFile
+from utils import WriteFile
 
 def GenerateInitialTrees(initial_software: str, msa_path: str, number_initial_trees: int, cores: int) -> list:
     initial_trees = []
