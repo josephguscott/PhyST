@@ -16,7 +16,7 @@ import os
 
 from args import Args
 from multiprocessing import cpu_count
-from preprocessing import Preprocessing
+from initial_trees import InitialTrees
 from print import Print
 from processing import Processing
 from log import LOG
@@ -34,7 +34,7 @@ class Physt:
         program_start = time.time()
 
         # generate starting trees, currently only uses MPBoot
-        Preprocessing(self.args)
+        InitialTrees(self.args)
 
         # refine initial trees using IQ-Tree
         Processing(self.args)
