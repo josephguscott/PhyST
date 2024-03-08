@@ -23,8 +23,8 @@ from multiprocessing import cpu_count
 
 from log import LOG
 from print import Print
-from preprocessing.preprocessing import Preprocessing
-from processing.processing import Processing
+from preprocessing import Preprocessing
+from processing import Processing
 
 PARSER = argparse.ArgumentParser()
 PARSER.add_argument('--msa', type=str, help='input MSA in Phylp/Fasta/Nexus/Clustal format', required=True)

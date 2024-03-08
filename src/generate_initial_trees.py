@@ -13,7 +13,7 @@
 
 import os
 
-from software.mpboot import GenerateMPBootCommand
+from mpboot import GenerateMPBootCommand
 from multiprocessing.pool import Pool
 
 from utils import ReadFile

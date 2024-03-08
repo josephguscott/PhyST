@@ -11,8 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from preprocessing.generate_initial_trees import GenerateInitialTrees, WriteInitialTrees
-from preprocessing.filter_initial_trees import FilterInitialTrees
+from generate_initial_trees import GenerateInitialTrees, WriteInitialTrees
+from filter_initial_trees import FilterInitialTrees
 
 class Preprocessing:
     def __init__(self, INIT_TREE_SIZE: int, HARDWARE: int, INIT_SOFTWARE: str, MSA_PATH: str) -> None:

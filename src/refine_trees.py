@@ -13,7 +13,7 @@
 
 import os
 
-from software.iqtree import IqtreeLikelihoodAnalysis
+from iqtree import IqtreeLikelihoodAnalysis
 
 def RefineInitialTrees(msa_path: str, cores: int, iqtree_options: str) -> None:
     treefile = msa_path + ".treefile"

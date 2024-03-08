@@ -15,7 +15,7 @@ import os
 import itertools
 import linecache
 
-from software.iqtree import IqtreeEvaluateTreesCommand
+from iqtree import IqtreeEvaluateTreesCommand
 from print import Print
 
 def FilterInitialTrees(msa_path: str, cores: int) -> None:
