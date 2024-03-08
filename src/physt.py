@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import datetime
 import time
 
 from args import Args
@@ -22,24 +23,17 @@ from log import LOG
 
 class Physt:
     def __init__(self) -> None:
-        pass
+        self.args = Args()
 
     def execute(self):
-        args = Args()
+        if self.args.VERBOSE is True:
+            LOG.info('Starting in debug mode')
 
-        if args.VERBOSE is True:
-            LOG.info('Starting PHYST in debug mode')
-        else:
-            LOG.info('To capture debug logs, use the \'-v\' argument')
-
+        Print(self.args)
         
         program_start = time.time()
-
-        PhystPrint = Print(args)
         #PhystPreprocessing = Preprocessing(args.NUM_MP_TREES, args.HARDWARE, args.MP_SOFTWARE, args.MSA_INPUT_PATH)
         #PhystProcessing = Processing(args.HARDWARE, args.MSA_INPUT_PATH, args.IQ_TREE_OPTIONS)
-
-        PhystPrint.PrintStartup()
 
         # generate starting trees, currently only uses MPBoot
         #PhystPreprocessing.GenerateStartingTrees()
@@ -55,3 +49,6 @@ class Physt:
 
         # remove old files
         # os.system("rm tree.* initial_trees_* initial_trees.treefile parsimony.treefile")
+
+        if self.args.VERBOSE is True:
+            LOG.info('Run completed')

@@ -23,7 +23,7 @@ def main():
     try:
         physt = Physt()
         physt.execute()
-        
+
     except Exception as err:
         LOG.critical(f'{type(err).__name__}: {err}')
         traceback.print_tb(err.__traceback__)
