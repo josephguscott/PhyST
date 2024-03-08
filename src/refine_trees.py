@@ -13,7 +13,9 @@
 
 import os
 
-from software.iqtree import IqtreeLikelihoodAnalysis
+from iqtree import IqtreeLikelihoodAnalysis
+
+from log import LOG
 
 def RefineInitialTrees(msa_path: str, cores: int, iqtree_options: str) -> None:
     treefile = msa_path + ".treefile"
@@ -30,5 +32,5 @@ def RefineInitialTrees(msa_path: str, cores: int, iqtree_options: str) -> None:
 
     best_score = output.split(": ")
 
-    print("")
-    print("Refined ML tree score: {}Refined ML treefile: {}".format(best_score[-1], treefile))
+    LOG.info(f'Refined ML tree score: {best_score[-1]}')
+    LOG.info(f'Refined ML treefile: {treefile}')

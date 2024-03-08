@@ -1,0 +1,53 @@
+# Copyright 2024 The PHYST Authors.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import argparse
+from datetime import datetime
+from multiprocessing import cpu_count
+
+class Args:
+    def __init__(self) -> None:
+        self.GetArgs()
+        self.MSA_INPUT_PATH
+        self.HARDWARE
+        self.NUM_MP_TREES
+        self.MP_SOFTWARE
+        self.ML_SOFTWARE
+        self.TIMESTAMP
+        self.IQ_TREE_OPTIONS
+        self.VERBOSE
+
+    def GetArgs(self) -> None:
+        PARSER = argparse.ArgumentParser()
+        PARSER.add_argument('--msa', type=str, help='input MSA in Phylp/Fasta/Nexus/Clustal format', required=True)
+        PARSER.add_argument('--init-trees', type=int, help='the number of initial trees generated', default=100)
+        PARSER.add_argument('--init-software', type=str, help='software used to generate initial trees', default='mpboot')
+        PARSER.add_argument('--ml-software', type=str, help='software used to generate ML trees', default='iqtree')
+        PARSER.add_argument('--parallel', type=int, help='number of cores to be used', default=1)
+        PARSER.add_argument('--max-parallel', type=bool, help='run PHYST using maximum resources', action=argparse.BooleanOptionalAction, default=False)
+        PARSER.add_argument('--iqtree-options', type=str, help='give iq-tree any user specified options', default='')
+        PARSER.add_argument('-v', type=bool, help='turn on verbose mode (debug logs)', default=False, action=argparse.BooleanOptionalAction, required=False)
+
+        args = vars(PARSER.parse_args())
+        self.MSA_INPUT_PATH = args['msa']
+        self.NUM_MP_TREES = args['init_trees']
+        self.MP_SOFTWARE = args['init_software']
+        self.ML_SOFTWARE = args['ml_software']
+        self.TIMESTAMP = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
+        self.IQ_TREE_OPTIONS = args['iqtree_options']
+        self.VERBOSE = args['v']
+
+        if args['max_parallel'] == True:
+            self.HARDWARE = cpu_count()
+        else:
+            self.HARDWARE = args['parallel']

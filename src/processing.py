@@ -11,13 +11,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from processing.refine_trees import RefineInitialTrees
+from refine_trees import RefineInitialTrees
 
 class Processing:
-    def __init__(self, HARDWARE: str, MSA_PATH: str, IQ_TREE_OPTIONS) -> None:
-        self.HARDWARE = HARDWARE
-        self.MSA_PATH = MSA_PATH
-        self.IQ_TREE_OPTIONS = IQ_TREE_OPTIONS
+    def __init__(self,args) -> None:
+        self.HARDWARE = args.HARDWARE
+        self.MSA_INPUT_PATH = args.MSA_INPUT_PATH
+        self.IQ_TREE_OPTIONS = args.IQ_TREE_OPTIONS
+        self.RefineStartingTrees()
 
     def RefineStartingTrees(self) -> None:
-        RefineInitialTrees(self.MSA_PATH, self.HARDWARE, self.IQ_TREE_OPTIONS)
+        RefineInitialTrees(self.MSA_INPUT_PATH, self.HARDWARE, self.IQ_TREE_OPTIONS)

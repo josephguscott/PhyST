@@ -12,62 +12,70 @@
 # limitations under the License.
 
 import time
+from log import LOG
 
 class Print:
-        physt_version = "1.0"
+        def __init__(self, Args):
+                self.PrintBanner()
+                self._physt_version = '1.0'
+                self._release_date = 'Aug 2023'
+                self._initial_software = Args.MP_SOFTWARE
+                self._msa_path = Args.MSA_INPUT_PATH
+                self._number_initial_trees = Args.NUM_MP_TREES
+                self._refinement_software = Args.ML_SOFTWARE
+                self._timestamp = Args.TIMESTAMP
+                self._cores = Args.HARDWARE
+                self.PrintStartup()
 
-        def __init__(self, initial_software: str, msa_path: str, number_initial_trees: int, refinement_software: str, 
-                     time_stamp: str, cores: int):
-                self.initial_software = initial_software
-                self.msa_path = msa_path
-                self.number_initial_trees = number_initial_trees
-                self.refinement_software = refinement_software
-                self.time_stamp = time_stamp
-                self.cores = cores
+        def PrintBanner(self) -> None:
+                print('')
+                LOG.info('######  #     # #       #  #####  ####### ')
+                LOG.info('#     # #     #  #     #  #     #    #    ')
+                LOG.info('#     # #     #   #   #   #          #    ')
+                LOG.info('######  #######    # #     #####     #    ')
+                LOG.info('#       #     #     #           #    #    ')
+                LOG.info('#       #     #     #     #     #    #    ')
+                LOG.info('#       #     #     #      #####     #    ')
+                print('')
 
         def PrintStartup(self) -> None:
-                self.__PrintHeader()
-                self.__PrintSoftwareConfig()
+                self.PrintHeader()
+                self.PrintSoftwareConfig()
 
-        def __PrintHeader(self) -> None:
-                print("===============================")
-                print("  PHYST Phylogenetic Pipeline  ")
-                print("===============================")
+        def PrintHeader(self) -> None:
+                LOG.info(f'PHYST (v{self._physt_version}, {self._release_date}) Built for Mac OS x 64-bit')
+                LOG.info('Developed by Joseph Guscott,')
+                LOG.info('Barker Lab,')
+                LOG.info('School of Biological Science')
+                LOG.info('University of Edinburgh')
+                LOG.info('Copyright (c) 2023 Joseph Guscott')
 
-                print(f"PHYST ({self.physt_version})")
-                print("Developed by Joseph Guscott,")
-                print("Barker Lab,")
-                print("School of Biological Science")
-                print("University of Edinburgh")
-                print("Copyright (c) 2023 Joseph Guscott")
-
-        def __PrintSoftwareConfig(self) -> None:
-                print("===============================")
-                print("PHYST configuration:")
-                print("  Initial Trees")
-                print("    Software:", self.initial_software)
-                print("    MSA:", self.msa_path)
-                print("    Trees evaluated:", self.number_initial_trees)
-                print("    Trees retained: 5")
-                print("")
-                print("  Likelihood Analysis")
-                print("    Software:", self.refinement_software)
-                print("")
-                print("  Resources")
-                print("    Cores:", self.cores)
-                print("")
-                print("Start time: ", self.time_stamp)
-                print("")
-                print("MPBoot provided by Hoang, et al., 2018; https://doi.org/10.1186/s12862-018-1131-3")
-                print("IQ-Tree provided by Minh, et al., 2020; https://doi.org/10.1093/molbev/msaa015")
-                print("===============================")
-                print("")
+        def PrintSoftwareConfig(self) -> None:
+                print('')
+                LOG.info('PHYST configuration:')
+                LOG.info('  Initial Trees')
+                LOG.info(f'    Software: {self._initial_software}')
+                LOG.info(f'    MSA: {self._msa_path}')
+                LOG.info(f'    Trees evaluated: {self._number_initial_trees}')
+                LOG.info('    Trees retained: 5')
+                print('')
+                LOG.info('  Likelihood Analysis')
+                LOG.info(f'    Software: {self._refinement_software}')
+                print('')
+                LOG.info('  Resources')
+                LOG.info(f'    Cores: {self._cores}')
+                print('')
+                LOG.info(f'Start time: {self._timestamp}')
+                print('')
+                LOG.info('MPBoot provided by Hoang, et al., 2018; https://doi.org/10.1186/s12862-018-1131-3')
+                LOG.info('IQ-Tree provided by Minh, et al., 2020; https://doi.org/10.1093/molbev/msaa015')
+                print('')
 
         @staticmethod
         def PrintDictionary(dictionary: dict) -> None:
                 for key in dictionary:
-                        print (key,':',dictionary[key])
+                        LOG.info (f'{key} : {dictionary[key]}')
 
         @staticmethod
         def PrintRuntime(program_runtime) -> None:
-                print("\nWall-clock time : ", time.strftime("%H:%M:%S", time.gmtime(program_runtime))) 
+                LOG.info(f"Wall-clock time : {time.strftime('%H:%M:%S', time.gmtime(program_runtime))}") 
