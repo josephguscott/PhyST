@@ -11,6 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from log import LOG
+
 def IqtreeEvaluateTreesCommand(msa_path: str, cores: int) -> str:
         iqtree_path = "./lib/iqtree "
         pass_msa = "-s " + msa_path
@@ -35,6 +37,6 @@ def IqtreeLikelihoodAnalysis(msa_path: str, cores: int, iqtree_options: str) -> 
     likelihood_command = iqtree_path + pass_msa + pass_treefile + parallel + user_options       
     likelihood_command = likelihood_command + " > /dev/null 2>&1"
 
-    print(likelihood_command)
+    LOG.info(f'{likelihood_command}')
 
     return likelihood_command

@@ -74,7 +74,7 @@ class Print:
         @staticmethod
         def PrintDictionary(dictionary: dict) -> None:
                 for key in dictionary:
-                        LOG.info (key,':',dictionary[key])
+                        LOG.info (f'{key} : {dictionary[key]}')
 
         @staticmethod
         def PrintRuntime(program_runtime) -> None:

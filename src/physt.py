@@ -11,8 +11,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import datetime
 import time
+import os
 
 from args import Args
 from multiprocessing import cpu_count
@@ -32,15 +32,12 @@ class Physt:
         Print(self.args)
         
         program_start = time.time()
-        #PhystPreprocessing = Preprocessing(args.NUM_MP_TREES, args.HARDWARE, args.MP_SOFTWARE, args.MSA_INPUT_PATH)
-        #PhystProcessing = Processing(args.HARDWARE, args.MSA_INPUT_PATH, args.IQ_TREE_OPTIONS)
 
         # generate starting trees, currently only uses MPBoot
-        #PhystPreprocessing.GenerateStartingTrees()
-        #PhystPreprocessing.FilterStartingTrees()
+        Preprocessing(self.args)
 
         # refine initial trees using IQ-Tree
-        #PhystProcessing.RefineStartingTrees()
+        Processing(self.args)
 
         program_end = time.time()
 
@@ -48,7 +45,7 @@ class Physt:
         Print.PrintRuntime(runtime)
 
         # remove old files
-        # os.system("rm tree.* initial_trees_* initial_trees.treefile parsimony.treefile")
+        os.system(f'rm tree.* initial_trees* parsimony.treefile {self.args.MSA_INPUT_PATH}.*')
 
         if self.args.VERBOSE is True:
             LOG.info('Run completed')

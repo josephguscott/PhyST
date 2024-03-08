@@ -13,19 +13,22 @@
 
 from generate_initial_trees import GenerateInitialTrees, WriteInitialTrees
 from filter_initial_trees import FilterInitialTrees
+from log import LOG
 
 class Preprocessing:
-    def __init__(self, NUM_MP_TREES: int, HARDWARE: int, MP_SOFTWARE: str, MSA_INPUT_PATH: str) -> None:
-        self.NUM_MP_TREES = NUM_MP_TREES
-        self.HARDWARE = HARDWARE
-        self.MP_SOFTWARE = MP_SOFTWARE
-        self.MSA_INPUT_PATH = MSA_INPUT_PATH
+    def __init__(self, args) -> None:
+        self.NUM_MP_TREES = args.NUM_MP_TREES
+        self.HARDWARE = args.HARDWARE
+        self.MP_SOFTWARE = args.MP_SOFTWARE
+        self.MSA_INPUT_PATH = args.MSA_INPUT_PATH
+        self.GenerateStartingTrees()
+        self.FilterStartingTrees()
 
     def GenerateStartingTrees(self) -> None:
-        print("Generating initial {} initial trees using {} cores".format(self.NUM_MP_TREES, self.HARDWARE))
+        LOG.info(f'Generating initial {self.NUM_MP_TREES} initial trees using {self.HARDWARE} cores')
         initial_trees = GenerateInitialTrees(self.MP_SOFTWARE, self.MSA_INPUT_PATH, self.NUM_MP_TREES, self.HARDWARE)
         WriteInitialTrees(initial_trees)
 
     def FilterStartingTrees(self) -> None:
-        print("Obtaining the best {} initial trees".format("5"))
+        LOG.info(f'Obtaining the best 5 initial trees')
         FilterInitialTrees(self.MSA_INPUT_PATH, self.HARDWARE)
