@@ -16,14 +16,13 @@ import time
 class Print:
         physt_version = "1.0"
 
-        def __init__(self, initial_software: str, msa_path: str, number_initial_trees: int, refinement_software: str, 
-                     time_stamp: str, cores: int):
-                self.initial_software = initial_software
-                self.msa_path = msa_path
-                self.number_initial_trees = number_initial_trees
-                self.refinement_software = refinement_software
-                self.time_stamp = time_stamp
-                self.cores = cores
+        def __init__(self, Args):
+                self.initial_software = Args.MP_SOFTWARE
+                self.msa_path = Args.MSA_INPUT_PATH
+                self.number_initial_trees = Args.NUM_MP_TREES
+                self.refinement_software = Args.ML_SOFTWARE
+                self.time_stamp = Args.TIMESTAMP
+                self.cores = Args.HARDWARE
 
         def PrintStartup(self) -> None:
                 self.__PrintHeader()
