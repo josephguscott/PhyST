@@ -26,11 +26,18 @@ class Log:
             return
         
         formatter = logging.Formatter(
-            fmt="%(asctime)s.%(msecs)03d %(levelname)s "
-                "%(message)s",
-                datefmt="%Y-%m-%d %H:%M:%S")
+            fmt='[%(asctime)s]%(levelname)s %(message)s', 
+            datefmt='%H:%M:%S')
         Log.stream_handler = logging.StreamHandler(sys.stdout)
         Log.stream_handler.setFormatter(formatter)
         Log.logger = logging.getLogger(LOGGER_NAME)
         Log.logger.addHandler(self.stream_handler)
         Log.logger.setLevel(logging.INFO)
+
+        logging.basicConfig(
+            filename='physt.log',
+            filemode='w',
+            level=logging.DEBUG,
+            format='[%(asctime)s]%(levelname)s %(message)s',
+            datefmt='%H:%M:%S'
+        )

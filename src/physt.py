@@ -18,6 +18,7 @@ from multiprocessing import cpu_count
 from preprocessing import Preprocessing
 from print import Print
 from processing import Processing
+from log import LOG
 
 class Physt:
     def __init__(self) -> None:
@@ -25,6 +26,13 @@ class Physt:
 
     def execute(self):
         args = Args()
+
+        if args.VERBOSE is True:
+            LOG.info('Starting PHYST in debug mode')
+        else:
+            LOG.info('To capture debug logs, use the \'-v\' argument')
+
+        
         program_start = time.time()
 
         PhystPrint = Print(args)

@@ -25,6 +25,7 @@ class Args:
         self.ML_SOFTWARE
         self.TIMESTAMP
         self.IQ_TREE_OPTIONS
+        self.VERBOSE
 
     def GetArgs(self) -> None:
         PARSER = argparse.ArgumentParser()
@@ -35,6 +36,7 @@ class Args:
         PARSER.add_argument('--parallel', type=int, help='number of cores to be used', default=1)
         PARSER.add_argument('--max-parallel', type=bool, help='run PHYST using maximum resources', action=argparse.BooleanOptionalAction, default=False)
         PARSER.add_argument('--iqtree-options', type=str, help='give iq-tree any user specified options', default='')
+        PARSER.add_argument('-v', type=bool, help='turn on verbose mode (debug logs)', default=False, action=argparse.BooleanOptionalAction, required=False)
 
         args = vars(PARSER.parse_args())
         self.MSA_INPUT_PATH = args['msa']
@@ -43,6 +45,7 @@ class Args:
         self.ML_SOFTWARE = args['ml_software']
         self.TIMESTAMP = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
         self.IQ_TREE_OPTIONS = args['iqtree_options']
+        self.VERBOSE = args['v']
 
         if args['max_parallel'] == True:
             self.HARDWARE = cpu_count()

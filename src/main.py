@@ -23,11 +23,11 @@ def main():
     try:
         physt = Physt()
         physt.execute()
-            
+        
     except Exception as err:
-        LOG.critical(f"{type(err).__name__}: {err}")
+        LOG.critical(f'{type(err).__name__}: {err}')
         traceback.print_tb(err.__traceback__)
         exit(1)
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
