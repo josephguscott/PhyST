@@ -35,7 +35,6 @@ class FilterTrees:
 
             LOG.info('Highest scoring likelihood trees:')
 
-            # call staticmethod from Print class
             Print.PrintDictionary(best_tree_numbers)
 
             self.WriteBestInitialTreesFile(best_tree_numbers)
@@ -54,12 +53,9 @@ class FilterTrees:
 
         best_trees_dict = {k: v for k, v in sorted(best_trees_dict.items(), key=lambda item: item[1], reverse=True)}
 
-        # print(best_trees_dict)
-
         return best_trees_dict
 
     def WriteBestInitialTreesFile(self, best_trees_number: dict) -> None:
-        # needs refactoring
         file = "initial_trees.treefile"
         line_numbers = []
         lines = []

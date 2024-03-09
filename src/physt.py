@@ -18,7 +18,7 @@ from args import Args
 from multiprocessing import cpu_count
 from initial_trees import InitialTrees
 from print import Print
-from processing import Processing
+from refine_trees import RefineTrees
 from log import LOG
 
 class Physt:
@@ -33,18 +33,15 @@ class Physt:
         
         program_start = time.time()
 
-        # generate starting trees, currently only uses MPBoot
         InitialTrees(self.args)
 
-        # refine initial trees using IQ-Tree
-        Processing(self.args)
+        RefineTrees(self.args)
 
         program_end = time.time()
 
         runtime = program_end - program_start
         Print.PrintRuntime(runtime)
 
-        # remove old files
         os.system(f'rm tree.* initial_trees* parsimony.treefile {self.args.MSA_INPUT_PATH}.*')
 
         if self.args.VERBOSE is True:

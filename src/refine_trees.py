@@ -17,20 +17,27 @@ from iqtree import IqtreeLikelihoodAnalysis
 
 from log import LOG
 
-def RefineInitialTrees(msa_path: str, cores: int, iqtree_options: str) -> None:
-    treefile = msa_path + ".treefile"
-    logfile = msa_path + ".log"
+class RefineTrees:
+    def __init__(self, args) -> None:
+        self.MSA_INPUT_PATH = args.MSA_INPUT_PATH
+        self.HARDWARE = args.HARDWARE
+        self.IQ_TREE_OPTIONS = args.IQ_TREE_OPTIONS
+        self.RefineInitialTrees()
 
-    refine_tree_command = IqtreeLikelihoodAnalysis(msa_path, cores, iqtree_options)
-    os.system(refine_tree_command)
+    def RefineInitialTrees(self) -> None:
+        treefile = self.MSA_INPUT_PATH + ".treefile"
+        logfile = self.MSA_INPUT_PATH + ".log"
 
-    with open(logfile, "r") as fp:
-        lines = fp.readlines()
-        for line in lines:
-            if line.startswith("BEST SCORE FOUND : "):
-                output = line
+        refine_tree_command = IqtreeLikelihoodAnalysis(self.MSA_INPUT_PATH, self.HARDWARE, self.IQ_TREE_OPTIONS)
+        os.system(refine_tree_command)
 
-    best_score = output.split(": ")
+        with open(logfile, "r") as fp:
+            lines = fp.readlines()
+            for line in lines:
+                if line.startswith("BEST SCORE FOUND : "):
+                    output = line
 
-    LOG.info(f'Refined ML tree score: {best_score[-1]}')
-    LOG.info(f'Refined ML treefile: {treefile}')
+        best_score = output.split(": ")
+
+        LOG.info(f'Refined ML tree score: {best_score[-1]}')
+        LOG.info(f'Refined ML treefile: {treefile}')

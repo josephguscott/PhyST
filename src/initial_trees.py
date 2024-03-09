@@ -47,12 +47,10 @@ class InitialTrees:
         
         parsimony_command = GenerateMPBootCommand(self.MP_SOFTWARE, self.MSA_INPUT_PATH)
 
-        # generate initial trees in parallel 
         with Pool(processes = self.HARDWARE) as pool:
             items =[(parsimony_command, i) for i in range(self.NUM_MP_TREES)]
             pool.starmap(self.ParallelGenerateTrees, items)
 
-        # concatenate trees into a single file
         for tree_number in range(self.NUM_MP_TREES):
             command = "cat tree." + str(tree_number) + ".treefile >> parsimony.treefile"
             os.system(command)
