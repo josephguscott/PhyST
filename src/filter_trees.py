@@ -27,17 +27,17 @@ class FilterTrees:
         self.FilterInitialTrees()
 
     def FilterInitialTrees(self) -> None:
-            evaluate_command = IqtreeEvaluateTreesCommand(self.MSA_INPUT_PATH, self.HARDWARE)
-            os.system(evaluate_command)
-            best_trees_dict = self.GetBestTreesDictionary()
+        evaluate_command = IqtreeEvaluateTreesCommand(self.MSA_INPUT_PATH, self.HARDWARE)
+        os.system(evaluate_command)
+        best_trees_dict = self.GetBestTreesDictionary()
 
-            best_tree_numbers = dict(itertools.islice(best_trees_dict.items(), 5))
+        best_tree_numbers = dict(itertools.islice(best_trees_dict.items(), 5))
 
-            LOG.info('Highest scoring likelihood trees:')
+        LOG.info('Highest scoring likelihood trees:')
 
-            Print.PrintDictionary(best_tree_numbers)
+        Print.PrintDictionary(best_tree_numbers)
 
-            self.WriteBestInitialTreesFile(best_tree_numbers)
+        self.WriteBestInitialTreesFile(best_tree_numbers)
 
     def GetBestTreesDictionary(self) -> dict:
         file = self.MSA_INPUT_PATH + ".log"
@@ -66,7 +66,7 @@ class FilterTrees:
 
         for i in range(5):
             line_numbers.append(int(dict_list[i]))
-            
+
         for i in line_numbers:
             x = linecache.getline(file, i).strip()
             lines.append(x)

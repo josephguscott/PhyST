@@ -11,14 +11,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from filter_trees import FilterTrees
-from log import LOG
-
 import os
-
-from mpboot import GenerateMPBootCommand
 from multiprocessing.pool import Pool
 
+from filter_trees import FilterTrees
+from log import LOG
+from mpboot import GenerateMPBootCommand
 from utils import ReadFile
 from utils import WriteFile
 
@@ -44,7 +42,7 @@ class InitialTrees:
     def GenerateInitialTrees(self) -> list:
         initial_trees = []
         tree_number = 0
-        
+
         parsimony_command = GenerateMPBootCommand(self.MP_SOFTWARE, self.MSA_INPUT_PATH)
 
         with Pool(processes = self.HARDWARE) as pool:

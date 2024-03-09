@@ -15,7 +15,6 @@ import time
 import os
 
 from args import Args
-from multiprocessing import cpu_count
 from initial_trees import InitialTrees
 from print import Print
 from refine_trees import RefineTrees
@@ -30,7 +29,7 @@ class Physt:
             LOG.info('Starting in debug mode')
 
         Print(self.args)
-        
+
         program_start = time.time()
 
         InitialTrees(self.args)

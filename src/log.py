@@ -24,9 +24,9 @@ class Log:
     def __init__(self) -> None:
         if Log.logger is not None:
             return
-        
+
         formatter = logging.Formatter(
-            fmt='[%(asctime)s] %(message)s', 
+            fmt='[%(asctime)s] %(message)s',
             datefmt='%H:%M:%S')
         Log.stream_handler = logging.StreamHandler(sys.stdout)
         Log.stream_handler.setFormatter(formatter)

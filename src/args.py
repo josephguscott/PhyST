@@ -18,14 +18,6 @@ from multiprocessing import cpu_count
 class Args:
     def __init__(self) -> None:
         self.GetArgs()
-        self.MSA_INPUT_PATH
-        self.HARDWARE
-        self.NUM_MP_TREES
-        self.MP_SOFTWARE
-        self.ML_SOFTWARE
-        self.TIMESTAMP
-        self.IQ_TREE_OPTIONS
-        self.VERBOSE
 
     def GetArgs(self) -> None:
         PARSER = argparse.ArgumentParser()
@@ -47,7 +39,7 @@ class Args:
         self.IQ_TREE_OPTIONS = args['iqtree_options']
         self.VERBOSE = args['v']
 
-        if args['max_parallel'] == True:
+        if args['max_parallel'] is True:
             self.HARDWARE = cpu_count()
         else:
             self.HARDWARE = args['parallel']
