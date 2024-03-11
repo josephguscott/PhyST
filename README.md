@@ -50,7 +50,7 @@ Command-line options can be passed directly to IQ-Tree through PHYST:
 With options to be passed enclosed by quotations.
 
 ## Version
-The current release of PHYST is v1.1.0.
+The current release of PHYST is v1.2.0.
 
 # Licence
 GNU GENERAL PUBLIC LICENSE v3.
