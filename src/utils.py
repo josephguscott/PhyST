@@ -13,8 +13,8 @@
 
 def ReadFile(file_path: str) -> None:
     with open(file_path) as file:
-            for line in file:
-                output = line
+        for line in file:
+            output = line
 
     return output
 
