@@ -12,7 +12,7 @@
 # limitations under the License.
 
 import os
-
+import re
 from iqtree import IqtreeLikelihoodAnalysis
 
 from log import LOG
@@ -27,6 +27,7 @@ class RefineTrees:
     def RefineInitialTrees(self) -> None:
         treefile = self.MSA_INPUT_PATH + ".treefile"
         logfile = self.MSA_INPUT_PATH + ".log"
+        best_score_regex = '^(BEST SCORE FOUND) (:) (-\d*.\d*)$'
 
         refine_tree_command = IqtreeLikelihoodAnalysis(self.MSA_INPUT_PATH, self.HARDWARE, self.IQ_TREE_OPTIONS)
         os.system(refine_tree_command)
@@ -34,10 +35,7 @@ class RefineTrees:
         with open(logfile, "r") as fp:
             lines = fp.readlines()
             for line in lines:
-                if line.startswith("BEST SCORE FOUND : "):
-                    output = line
-
-        best_score = output.split(": ")
-
-        LOG.info(f'Refined ML tree score: {best_score[-1]}')
-        LOG.info(f'Refined ML treefile: {treefile}')
+                tree_search = re.search(best_score_regex, line)
+                if tree_search is not None:
+                    LOG.info(f'Refined ML tree score: {tree_search.group(3)}')
+                    LOG.info(f'Refined ML treefile: {treefile}')

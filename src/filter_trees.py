@@ -20,6 +20,8 @@ from print import Print
 
 from log import LOG
 
+import re
+
 class FilterTrees:
     def __init__(self, MSA_INPUT_PATH, HARDWARE) -> None:
         self.MSA_INPUT_PATH = MSA_INPUT_PATH
@@ -42,14 +44,13 @@ class FilterTrees:
     def GetBestTreesDictionary(self) -> dict:
         file = self.MSA_INPUT_PATH + ".log"
         best_trees_dict = {}
+        iqtree_regex = '^(Tree \d+) \/ (LogL:) (-\d*.\d*)$'
 
         with open(file, "r") as fp:
             for line in fp:
-                if line.startswith("Tree "):
-                    tree_line = line.split()
-                    tree = "Tree " + tree_line[1]
-                    score = float(tree_line[-1])
-                    best_trees_dict[tree] = score
+                tree_search = re.search(iqtree_regex, line)
+                if tree_search is not None:
+                    best_trees_dict[str(tree_search.group(1))] = float(tree_search.group(3))
 
         best_trees_dict = {k: v for k, v in sorted(best_trees_dict.items(), key=lambda item: item[1], reverse=True)}
 
