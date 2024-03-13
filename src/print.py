@@ -17,8 +17,9 @@ from log import LOG
 class Print:
     def __init__(self, Args):
         self.PrintBanner()
-        self._physt_version = '1.0'
-        self._release_date = 'Aug 2023'
+        self._physt_version = Args.CONFIG['physt']['version']
+        self._release_date = Args.CONFIG['physt']['releaseDate']
+        self._operating_system = Args.CONFIG['operatingSystem']['macos']
         self._initial_software = Args.MP_SOFTWARE
         self._msa_path = Args.MSA_INPUT_PATH
         self._number_initial_trees = Args.NUM_MP_TREES
@@ -43,7 +44,7 @@ class Print:
         self.PrintSoftwareConfig()
 
     def PrintHeader(self) -> None:
-        LOG.info(f'PHYST (v{self._physt_version}, {self._release_date}) Built for Mac OS x 64-bit')
+        LOG.info(f'PHYST (v{self._physt_version}, {self._release_date}) Built for {self._operating_system}')
         LOG.info('Developed by Joseph Guscott,')
         LOG.info('Barker Lab,')
         LOG.info('School of Biological Science')
