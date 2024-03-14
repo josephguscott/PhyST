@@ -23,9 +23,10 @@ from log import LOG
 import re
 
 class FilterTrees:
-    def __init__(self, MSA_INPUT_PATH, HARDWARE) -> None:
+    def __init__(self, MSA_INPUT_PATH, HARDWARE, NUM_MP_TREES) -> None:
         self.MSA_INPUT_PATH = MSA_INPUT_PATH
         self.HARDWARE = HARDWARE
+        self.NUM_MP_TREES = NUM_MP_TREES
         self.FilterInitialTrees()
 
     def FilterInitialTrees(self) -> None:
@@ -33,7 +34,7 @@ class FilterTrees:
         os.system(evaluate_command)
         best_trees_dict = self.GetBestTreesDictionary()
 
-        best_tree_numbers = dict(itertools.islice(best_trees_dict.items(), 5))
+        best_tree_numbers = dict(itertools.islice(best_trees_dict.items(), self.NUM_MP_TREES))
 
         LOG.info('Highest scoring likelihood trees:')
 
@@ -65,7 +66,7 @@ class FilterTrees:
         for key in best_trees_number:
             dict_list.append(key[-1])
 
-        for i in range(5):
+        for i in range(self.NUM_MP_TREES):
             line_numbers.append(int(dict_list[i]))
 
         for i in line_numbers:
@@ -76,7 +77,7 @@ class FilterTrees:
             for i in lines:
                 fp.write("%s\n" % i)
 
-        for i in range(5):
+        for i in range(self.NUM_MP_TREES):
             j = str(i + 1)
             file_name = "initial_trees_best_" + j + ".treefile"
 

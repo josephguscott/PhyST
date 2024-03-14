@@ -17,11 +17,13 @@ from log import LOG
 class Print:
     def __init__(self, Args):
         self.PrintBanner()
-        self._physt_version = '1.0'
-        self._release_date = 'Aug 2023'
+        self._physt_version = Args.CONFIG['physt']['version']
+        self._release_date = Args.CONFIG['physt']['releaseDate']
+        self._operating_system = Args.CONFIG['operatingSystem']['macos']
         self._initial_software = Args.MP_SOFTWARE
         self._msa_path = Args.MSA_INPUT_PATH
-        self._number_initial_trees = Args.NUM_MP_TREES
+        self._number_initial_trees = Args.NUM_INIT_TREES
+        self._number_mp_trees = Args.NUM_MP_TREES
         self._refinement_software = Args.ML_SOFTWARE
         self._timestamp = Args.TIMESTAMP
         self._cores = Args.HARDWARE
@@ -43,7 +45,7 @@ class Print:
         self.PrintSoftwareConfig()
 
     def PrintHeader(self) -> None:
-        LOG.info(f'PHYST (v{self._physt_version}, {self._release_date}) Built for Mac OS x 64-bit')
+        LOG.info(f'PHYST (v{self._physt_version}, {self._release_date}) Built for {self._operating_system}')
         LOG.info('Developed by Joseph Guscott,')
         LOG.info('Barker Lab,')
         LOG.info('School of Biological Science')
@@ -57,7 +59,7 @@ class Print:
         LOG.info(f'    Software: {self._initial_software}')
         LOG.info(f'    MSA: {self._msa_path}')
         LOG.info(f'    Trees evaluated: {self._number_initial_trees}')
-        LOG.info('    Trees retained: 5')
+        LOG.info(f'    Trees retained: {self._number_mp_trees}')
         print('')
         LOG.info('  Likelihood Analysis')
         LOG.info(f'    Software: {self._refinement_software}')

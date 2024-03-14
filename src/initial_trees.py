@@ -22,22 +22,23 @@ from utils import WriteFile
 
 class InitialTrees:
     def __init__(self, args) -> None:
-        self.NUM_MP_TREES = args.NUM_MP_TREES
+        self.NUM_INIT_TREES = args.NUM_INIT_TREES
         self.HARDWARE = args.HARDWARE
         self.MP_SOFTWARE = args.MP_SOFTWARE
         self.MSA_INPUT_PATH = args.MSA_INPUT_PATH
+        self.NUM_INIT_TREES = args.NUM_INIT_TREES
         self.NUM_MP_TREES = args.NUM_MP_TREES
         self.GenerateStartingTrees()
         self.FilterStartingTrees()
 
     def GenerateStartingTrees(self) -> None:
-        LOG.info(f'Generating initial {self.NUM_MP_TREES} initial trees using {self.HARDWARE} cores')
+        LOG.info(f'Generating initial {self.NUM_INIT_TREES} initial trees using {self.HARDWARE} cores')
         initial_trees = self.GenerateInitialTrees()
         self.WriteInitialTrees(initial_trees)
 
     def FilterStartingTrees(self) -> None:
-        LOG.info(f'Obtaining the best 5 initial trees')
-        FilterTrees(self.MSA_INPUT_PATH, self.HARDWARE)
+        LOG.info(f'Obtaining the best {self.NUM_MP_TREES} initial trees')
+        FilterTrees(self.MSA_INPUT_PATH, self.HARDWARE, self.NUM_MP_TREES)
 
     def GenerateInitialTrees(self) -> list:
         initial_trees = []
@@ -46,10 +47,10 @@ class InitialTrees:
         parsimony_command = GenerateMPBootCommand(self.MP_SOFTWARE, self.MSA_INPUT_PATH)
 
         with Pool(processes = self.HARDWARE) as pool:
-            items =[(parsimony_command, i) for i in range(self.NUM_MP_TREES)]
+            items =[(parsimony_command, i) for i in range(self.NUM_INIT_TREES)]
             pool.starmap(self.ParallelGenerateTrees, items)
 
-        for tree_number in range(self.NUM_MP_TREES):
+        for tree_number in range(self.NUM_INIT_TREES):
             command = "cat tree." + str(tree_number) + ".treefile >> parsimony.treefile"
             os.system(command)
             initial_tree = ReadFile(f'tree.{tree_number}.treefile')
