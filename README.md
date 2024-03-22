@@ -50,7 +50,7 @@ Command-line options can be passed directly to IQ-Tree through PHYST:
 With options to be passed enclosed by quotations.
 
 # Licence
-GNU GENERAL PUBLIC LICENSE v3.
+APACHE License v2 (January 2004)
 
 # Contact
 Please direct any questions about PHYST to Joseph Guscott joseph.guscott@ed.ac.uk or Daniel Barker at daniel.barker@ed.ac.uk
