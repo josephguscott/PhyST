@@ -19,6 +19,7 @@ class Print:
         self.PrintBanner()
         self._physt_version = Args.CONFIG['physt']['version']
         self._release_date = Args.CONFIG['physt']['releaseDate']
+        self._release_year = Args.CONFIG['physt']['releaseYear']
         self._operating_system = Args.CONFIG['operatingSystem']['macos']
         self._initial_software = Args.MP_SOFTWARE
         self._msa_path = Args.MSA_INPUT_PATH
@@ -45,12 +46,12 @@ class Print:
         self.PrintSoftwareConfig()
 
     def PrintHeader(self) -> None:
-        LOG.info(f'PHYST (v{self._physt_version}, {self._release_date}) Built for {self._operating_system}')
+        LOG.info(f'PHYST (v{self._physt_version}, {self._release_date} {self._release_year}) Built for {self._operating_system}')
         LOG.info('Developed by Joseph Guscott,')
         LOG.info('Barker Lab,')
         LOG.info('School of Biological Science')
         LOG.info('University of Edinburgh')
-        LOG.info('Copyright (c) 2023 Joseph Guscott')
+        LOG.info(f'Copyright (c) {self._release_year} Joseph Guscott')
 
     def PrintSoftwareConfig(self) -> None:
         print('')

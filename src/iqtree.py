@@ -35,7 +35,7 @@ def IqtreeLikelihoodAnalysis(msa_path: str, cores: int, iqtree_options: str) -> 
     user_options = " " + iqtree_options
 
     likelihood_command = iqtree_path + pass_msa + pass_treefile + parallel + user_options       
-    likelihood_command = likelihood_command + " > /dev/null 2>&1"
+    likelihood_command = likelihood_command + "-redo > /dev/null 2>&1"
 
     LOG.info(f'{likelihood_command}')
 
