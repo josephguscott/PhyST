@@ -42,8 +42,8 @@ class Physt:
         runtime = program_end - program_start
         Print.PrintRuntime(runtime)
 
-        os.system(f'mv physt.log {self.args.TIMESTAMP}')
-        os.system(f'rm tree.* initial_trees* parsimony.treefile')
+        os.system(f'mv physt.log parsimony.treefile {self.args.MSA_INPUT_PATH}.* {self.args.TIMESTAMP}')
+        os.system(f'rm tree.* initial_trees*')
 
         if self.args.VERBOSE is True:
             LOG.info('Run completed')
