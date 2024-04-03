@@ -30,7 +30,8 @@ class Print:
         self._cores = Args.HARDWARE
         self.PrintStartup()
 
-    def PrintBanner(self) -> None:
+    @staticmethod
+    def PrintBanner() -> None:
         print('')
         LOG.info('######  #     # #       #  #####  ####### ')
         LOG.info('#     # #     #  #     #  #     #    #    ')
@@ -68,10 +69,10 @@ class Print:
         LOG.info('  Resources')
         LOG.info(f'    Cores: {self._cores}')
         print('')
-        LOG.info(f'Start time: {self._timestamp}')
-        print('')
         LOG.info('MPBoot provided by Hoang, et al., 2018; https://doi.org/10.1186/s12862-018-1131-3')
         LOG.info('IQ-Tree provided by Minh, et al., 2020; https://doi.org/10.1093/molbev/msaa015')
+        print('')
+        LOG.info(f'Start time: {self._timestamp}')
         print('')
 
     @staticmethod

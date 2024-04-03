@@ -14,12 +14,12 @@ Current developers:
 
 PHYST is not reliant on any external python packages, but does require Python3.11 to run.
 
-PHYST is currently reliant on both MPBoot and IQ-Tree binaries, which are available from:
+By default, PHYST is reliant on both MPBoot and IQ-Tree binaries, which are available from:
 
 - MPBoot: http://www.iqtree.org/mpboot/ 
 - IQ-Tree: http://www.iqtree.org/
 
-Both binaries are required within the 'lib/' folder.
+Both binaries ('mpboot' and 'iqtree') are required within the 'lib/' folder.
 
 Currently, PHYST is ran using the following command:
 ~~~~

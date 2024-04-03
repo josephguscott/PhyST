@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-def ReadFile(file_path: str) -> None:
+def ReadFile(file_path: str) -> str:
     with open(file_path) as file:
         for line in file:
             output = line

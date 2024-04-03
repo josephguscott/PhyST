@@ -19,6 +19,7 @@ from initial_trees import InitialTrees
 from print import Print
 from refine_trees import RefineTrees
 from log import LOG
+from initialise import InitialisePhyst
 
 class Physt:
     def __init__(self) -> None:
@@ -30,6 +31,8 @@ class Physt:
             LOG.info('Starting in debug mode')
 
         Print(self.args)
+
+        InitialisePhyst(self.args)
 
         program_start = time.time()
 
