@@ -18,9 +18,13 @@ class InitialisePhyst:
     def __init__(self, Args) -> None:
         self.mp_software = Args.MP_SOFTWARE
         self.ml_software = Args.ML_SOFTWARE
+        self._msa_path = Args.MSA_INPUT_PATH
         self.InitialChecks()
 
     def InitialChecks(self) -> None:
+        if Path(self._msa_path).is_file() is False:
+            raise Exception(f"Cannot find {self._msa_path}")
+
         initial_software_path = 'lib/' + self.mp_software
         if Path(initial_software_path).is_file() is False:
             raise Exception(f"Cannot find {self.mp_software} within 'lib/'")
