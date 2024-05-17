@@ -17,6 +17,7 @@ from multiprocessing.pool import Pool
 from filter_trees import FilterTrees
 from log import LOG
 from mpboot import GenerateMPBootCommand
+from lvb import GenerateLVBCommand
 from utils import ReadFile
 from utils import WriteFile
 
@@ -28,6 +29,8 @@ class InitialTrees:
         self.MSA_INPUT_PATH = args.MSA_INPUT_PATH
         self.NUM_INIT_TREES = args.NUM_INIT_TREES
         self.NUM_MP_TREES = args.NUM_MP_TREES
+        self.MP_OUT_PREFIX = args.MP_OUT_PREFIX
+        self.MP_OUT_SUFFIX = args.MP_OUT_SUFFIX
         self.GenerateStartingTrees()
         self.FilterStartingTrees()
 
@@ -44,7 +47,9 @@ class InitialTrees:
         initial_trees = []
         tree_number = 0
 
-        parsimony_command = GenerateMPBootCommand(self.MP_SOFTWARE, self.MSA_INPUT_PATH)
+        if self.MP_SOFTWARE == 'lvb':
+            parsimony_command = GenerateLVBCommand(self.MP_SOFTWARE, self.MSA_INPUT_PATH)
+        else: parsimony_command = GenerateMPBootCommand(self.MP_SOFTWARE, self.MSA_INPUT_PATH)
 
         with Pool(processes = self.HARDWARE) as pool:
             items =[(parsimony_command, i) for i in range(self.NUM_INIT_TREES)]
@@ -63,6 +68,6 @@ class InitialTrees:
             WriteFile("initial_trees.treefile", initial_trees[i])
 
     def ParallelGenerateTrees(self, parsimony_command: str, tree_number: int) -> None:
-        loop_parsimony_command = parsimony_command + " -pre tree." + str(tree_number)
+        loop_parsimony_command = parsimony_command + self.MP_OUT_PREFIX + str(tree_number) + self.MP_OUT_SUFFIX
         loop_parsimony_command = loop_parsimony_command + " > /dev/null 2>&1"
         os.system(loop_parsimony_command)
