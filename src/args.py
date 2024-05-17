@@ -22,7 +22,7 @@ class Args:
 
     def GetArgs(self) -> None:
         PARSER = argparse.ArgumentParser()
-        PARSER.add_argument('--msa', type=str, help='input MSA in Phylp/Fasta/Nexus/Clustal format', required=True)
+        PARSER.add_argument('--msa', type=str, help='input MSA in Phylip/Fasta/Nexus/Clustal format', required=True)
         PARSER.add_argument('--init-trees', type=int, help='the number of initial trees generated', default=100, required=False)
         PARSER.add_argument('--mp-trees', type=int, help='number of MP trees passed to ML software', default=5, required=False)
         PARSER.add_argument('--init-software', type=str, help='software used to generate initial trees', default='mpboot', required=False)
@@ -48,3 +48,8 @@ class Args:
             self.HARDWARE = cpu_count()
         else:
             self.HARDWARE = args['parallel']
+
+        if args['init_software'] == 'lvb':
+            self.MP_OUT_PREFIX, self.MP_OUT_SUFFIX = " -o tree.",".treefile"
+        else: self.MP_OUT_PREFIX, self.MP_OUT_SUFFIX = " -pre tree.",""
+            
