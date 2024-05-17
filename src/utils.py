@@ -11,11 +11,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-def ReadFile(file_path: str) -> None:
-    with open(file_path) as file:
-        for line in file:
-            output = line
+import linecache
+from random import randrange
 
+def ReadRandomLine(file_path: str) -> None:
+    with open(file_path) as file:
+        for count, line in enumerate(file):
+            pass
+    i = randrange(count+1)
+    output = linecache.getline(file_path, i)
+    
     return output
 
 def WriteFile(file_path: str, data_structure: list) -> None:
