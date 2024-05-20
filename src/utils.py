@@ -14,12 +14,17 @@
 import linecache
 from random import randrange
 
+def ReadFile(file_path: str) -> None:
+    with open(file_path) as file:
+        for line in file:
+            output = line
+
 def ReadRandomLine(file_path: str) -> None:
     with open(file_path) as file:
-        for count, line in enumerate(file):
+        for count in enumerate(file):
             pass
-    i = randrange(count+1)
-    output = linecache.getline(file_path, i)
+    line_num = randrange(count[0]+1)
+    output = linecache.getline(file_path, line_num)
     
     return output
 
