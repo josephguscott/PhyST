@@ -47,7 +47,7 @@ class Print:
 
     def PrintHeader(self) -> None:
         LOG.info(f'PHYST (v{self._physt_version}, {self._release_date} {self._release_year}) Built for {self._operating_system}')
-        LOG.info('Developed by Joseph Guscott,')
+        LOG.info('Developed by Joseph Guscott & David Bunn')
         LOG.info('Barker Lab,')
         LOG.info('School of Biological Science')
         LOG.info('University of Edinburgh')
