@@ -12,6 +12,8 @@
 # limitations under the License.
 
 import os
+import random
+import time
 from multiprocessing.pool import Pool
 
 from filter_trees import FilterTrees
@@ -69,5 +71,8 @@ class InitialTrees:
 
     def ParallelGenerateTrees(self, parsimony_command: str, tree_number: int) -> None:
         loop_parsimony_command = parsimony_command + self.MP_OUT_PREFIX + str(tree_number) + self.MP_OUT_SUFFIX
+        if self.MP_SOFTWARE == 'lvb':
+            random_seed = time.time()%1*100000 + random.randint(1,100000)
+            loop_parsimony_command += " -s " + str(random_seed)
         loop_parsimony_command = loop_parsimony_command + " > /dev/null 2>&1"
         os.system(loop_parsimony_command)
