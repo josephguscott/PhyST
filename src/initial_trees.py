@@ -20,6 +20,7 @@ from filter_trees import FilterTrees
 from log import LOG
 from mpboot import GenerateMPBootCommand
 from lvb import GenerateLVBCommand
+from utils import ReadFile
 from utils import ReadRandomLine
 from utils import WriteFile
 
@@ -60,7 +61,9 @@ class InitialTrees:
         for tree_number in range(self.NUM_INIT_TREES):
             command = "cat tree." + str(tree_number) + ".treefile >> parsimony.treefile"
             os.system(command)
-            initial_tree = ReadRandomLine(f'tree.{tree_number}.treefile')
+            if self.MP_SOFTWARE == 'lvb':
+                initial_tree = ReadRandomLine(f'tree.{tree_number}.treefile')
+            else: initial_tree = ReadFile(f'tree.{tree_number}.treefile')
             initial_trees.append(initial_tree)
 
         return initial_trees
