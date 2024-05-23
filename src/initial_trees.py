@@ -12,8 +12,11 @@
 # limitations under the License.
 
 import os
+import sys
+import subprocess
 import random
 import time
+import re
 from multiprocessing.pool import Pool
 
 from filter_trees import FilterTrees
@@ -77,5 +80,14 @@ class InitialTrees:
         if self.MP_SOFTWARE == 'lvb':
             random_seed = time.time()%1*100000 + random.randint(1,100000)
             loop_parsimony_command += " -s " + str(random_seed)
-        loop_parsimony_command = loop_parsimony_command + " > /dev/null 2>&1"
-        os.system(loop_parsimony_command)
+        # loop_parsimony_command = loop_parsimony_command + " > /dev/null 2>&1"
+        try:
+            subprocess.run(loop_parsimony_command.split(), check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        except subprocess.CalledProcessError as e:
+            error_msg = re.findall("ERROR: .*\n",e.stdout.decode())
+            print(f"{self.MP_SOFTWARE.upper()} failed with error:\n")
+            for msg in error_msg:
+                print(msg)
+            sys.exit(1)
+        
+        # os.system(loop_parsimony_command)
