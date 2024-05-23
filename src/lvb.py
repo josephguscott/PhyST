@@ -16,6 +16,7 @@ import re
 def GenerateLVBCommand(initial_software: str, msa_path: str) -> str:
     software_path = f'{initial_software} '
     pass_msa_path = "-i " + msa_path
+    p_threads = 1
 
     file_extension = re.search(".(\w+)\Z", msa_path)
     formats = {'phy':'phylip','ph':'phylip','phylip':'phylip',
@@ -27,6 +28,6 @@ def GenerateLVBCommand(initial_software: str, msa_path: str) -> str:
         print(msa_format.upper() + ' format detected.')
     else: msa_format = 'phylip'
 
-    command = software_path + pass_msa_path + ' -f ' + msa_format
+    command = software_path + pass_msa_path + ' -f ' + msa_format + ' -p ' + str(p_threads)
     
     return command
