@@ -13,6 +13,7 @@
 
 import linecache
 from random import randrange
+import re
 
 def ReadFile(file_path: str) -> None:
     with open(file_path) as file:
@@ -33,3 +34,15 @@ def WriteFile(file_path: str, data_structure: list) -> None:
     with open(file_path, 'a+') as file:
         for line in data_structure:
             file.write(f"{line}")
+
+def DetectFileFormat(msa_path) -> str:
+    file_extension = re.search(".(\w+)\Z", msa_path)
+    formats = {'phy':'phylip','ph':'phylip','phylip':'phylip',
+            'fa':'fasta','fasta':'fasta',
+            'nex':'nexus','nxs':'nexus','nexus':'nexus',
+            'aln':'clustal','clustal':'clustal'}
+    if file_extension:
+        msa_format = formats[file_extension[1].lower()]
+        print(msa_format.upper() + ' format detected.')
+    else: msa_format = 'phylip'
+    return msa_format
