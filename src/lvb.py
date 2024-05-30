@@ -11,22 +11,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import re
+from utils import DetectFileFormat
 
 def GenerateLVBCommand(initial_software: str, msa_path: str) -> str:
     software_path = f'{initial_software} '
     pass_msa_path = "-i " + msa_path
     p_threads = 1
-
-    file_extension = re.search(".(\w+)\Z", msa_path)
-    formats = {'phy':'phylip','ph':'phylip','phylip':'phylip',
-               'fa':'fasta','fasta':'fasta',
-               'nex':'nexus','nxs':'nexus','nexus':'nexus',
-               'aln':'clustal','clustal':'clustal'}
-    if file_extension:
-        msa_format = formats[file_extension[1].lower()]
-        print(msa_format.upper() + ' format detected.')
-    else: msa_format = 'phylip'
+    msa_format = DetectFileFormat(msa_path)
 
     command = software_path + pass_msa_path + ' -f ' + msa_format + ' -p ' + str(p_threads)
     
