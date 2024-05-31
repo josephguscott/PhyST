@@ -49,6 +49,7 @@ class Physt:
         if self.args.MP_SOFTWARE == 'tnt':
             tnt_input = TNT_input(self.args.MSA_INPUT_PATH)
             os.system(f'rm {tnt_input}')
+            os.system(f'mv tnt.log {self.args.TIMESTAMP}')
             
         if self.args.VERBOSE is True:
             LOG.info('Run completed')
