@@ -79,6 +79,7 @@ set output_svg $StrictConsensus.svg;
 set myout $Default; 
 set nuhits 1 ; 
 set round 0 ; 
+set tfile $MPT_trees.treefile ;
 if (windows && (argnumber == 0))
 	set ancho[0] 375 ; set ancho [1] 375 ; 
 	set ancho[2] 375 ; set ancho [3] 375 ; 
@@ -348,9 +349,7 @@ else
 		quote &32&32&32&32Gaps are treated as $zgaps &10;
 		quote &32&32&32&32Output &61&32 $znew &10;
 		quote &32&32&32&32Outgroup &61&32 $myout &10;
-		if ('tfile')
-			quote &32&32&32&32Output treefile &61&32 $$tfile &10 &10;
-		end
+		quote &32&32&32&32Output treefile &61&32 $tfile &10 &10;
 		lquote - ;
 	end     
 	set savNelsen 0 ; 
@@ -525,9 +524,8 @@ silent - all ; quote - Trees saved in Newick format ; silent = all ;
 set tmp $$output_mpts;
 set newi $.treefile  ;
 set output_new $$tmp $newi;
-if ('tfile')
-	set output_new $$tfile ;
-end
+set output_new $$tfile ;
+
 export = $output_new ;
 silent - all ; quote - Most parsimonious trees saved to $output_new (Newick format)  ; silent = all ; 
  
