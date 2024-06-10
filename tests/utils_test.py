@@ -11,5 +11,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
+from src.utils import ReadFile, WriteFile, ReadRandomLine, DetectFileFormat
+
 def test_always_passes():
+    assert True
+
+def test_ReadFile():
+    result = ReadFile("example_MSAs/test.fasta")
+    assert result == "CACCAGGTCACTGCGTAACAGACCT"
+
+def test_WriteFile():
+    contents = ["This ","is ","a ","test."]
+    WriteFile("write_test.txt",contents)
+    with open("write_test.txt") as write_test:
+        result = ""
+        for line in write_test:
+            result += line
+    os.remove("write_test.txt")
+    assert result == "This is a test."
+
+def test_ReadRandomLine():
+    assert True
+
+def test_DetectFileFormat():
     assert True
