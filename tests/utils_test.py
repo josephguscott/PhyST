@@ -35,4 +35,7 @@ def test_ReadRandomLine():
     assert True
 
 def test_DetectFileFormat():
-    assert True
+    results = []
+    for file in ["test.fa", "test.nex", "test.aln", "test.ph", "test.txt"]:
+        results.append(DetectFileFormat(file))
+    assert results == ["fasta", "nexus", "clustal", "phylip", "phylip"]
