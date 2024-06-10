@@ -86,11 +86,9 @@ class InitialTrees:
             random_seed = time.time()%1*100000 + random.randint(1,100000)
             loop_parsimony_command += " -s " + str(random_seed)
         elif self.MP_SOFTWARE == 'tnt':
-            print(f'#################### Platform: {platform}')
             if platform.startswith(('linux','darwin')):
                 loop_parsimony_command += ', < quit_tnt.txt'
             else: loop_parsimony_command += '; < quit_tnt.txt'
-            print(loop_parsimony_command)
         try:
             subprocess.run(loop_parsimony_command.split(), check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         except subprocess.CalledProcessError as e:
