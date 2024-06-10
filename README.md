@@ -14,12 +14,15 @@ Current developers:
 
 PHYST is not reliant on any external python packages, but does require Python3.11 to run.
 
-PHYST is currently reliant on both MPBoot and IQ-Tree binaries, which are available from:
+Dependent on program selection, PHYST is currently reliant on MPBoot, LVB, TNT, EMBOSS and IQ-Tree binaries, which are available from:
 
 - MPBoot: http://www.iqtree.org/mpboot/ 
+- LVB: https://lvb.bio.ed.ac.uk/
+- TNT: https://www.lillo.org.ar/phylogeny/tnt/
+- EMBOSS (if TNT used): https://emboss.sourceforge.net/download/
 - IQ-Tree: http://www.iqtree.org/
 
-Both binaries are required within the 'lib/' folder.
+All binaries are required within the 'lib/' folder.
 
 Currently, PHYST is ran using the following command:
 ~~~~
@@ -27,6 +30,12 @@ python3.11 src/main.py --msa <msa>
 ~~~~
 
 ### Command-line options
+
+Specify the software used for the Maximum Parsimony stage:
+~~~~
+--init-software <software name>
+~~~~
+Options: mpboot (default), lvb, tnt
 
 Run PHYST with more or few initial trees:
 ~~~~
@@ -43,11 +52,21 @@ or using maximum cores:
 --max-parallel
 ~~~~
 
+If using TNT for the Maximum Parsimony stage, intensity of search (0-10) can be specified:
+~~~~
+--tnt-level <level>
+~~~~
+Level 0 is fastest and least accurate, level 10 is slowest and most accurate. Default level=1.
+
 Command-line options can be passed directly to IQ-Tree through PHYST:
 ~~~
 -iqtree-options '<options>'
 ~~~
 With options to be passed enclosed by quotations.
+
+# Credit
+The script used for TNT searching, 'TNTsearch.run' is a modified version of the script 'PhylogenomicSearch.run' from the following paper:
+Parsimony analysis of phylogenomic datasets (I): scripts and guidelines for using TNT. Ambrosio Torres, Pablo A. Goloboff and Santiago A. Catalano (Cladistics. 2022) [https://onlinelibrary.wiley.com/doi/epdf/10.1111/cla.12477?af=R]
 
 # Licence
 APACHE License v2 (January 2004)
