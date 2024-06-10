@@ -86,17 +86,19 @@ class InitialTrees:
             random_seed = time.time()%1*100000 + random.randint(1,100000)
             loop_parsimony_command += " -s " + str(random_seed)
         elif self.MP_SOFTWARE == 'tnt':
+            print(f'#################### Platform: {platform}')
             if platform.startswith(('linux','darwin')):
                 loop_parsimony_command += ', < quit_tnt.txt'
-                print(loop_parsimony_command)
             else: loop_parsimony_command += '; < quit_tnt.txt'
-        # try:
-        #     subprocess.run(loop_parsimony_command.split(), check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        # except subprocess.CalledProcessError as e:
-        #     error_msg = re.findall("ERROR: .*\n",e.stdout.decode())
-        #     print(f"{self.MP_SOFTWARE.upper()} failed with error:\n")
-        #     for msg in error_msg:
-        #         print(msg)
-        #     sys.exit(1)
-        loop_parsimony_command = loop_parsimony_command + " > /dev/null 2>&1"
-        os.system(loop_parsimony_command)
+            print(loop_parsimony_command)
+        try:
+            subprocess.run(loop_parsimony_command.split(), check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        except subprocess.CalledProcessError as e:
+            if self.MP_SOFTWARE == 'tnt':
+                raise Exception('TNT failed. See tnt.log for error message.')
+            else:
+                error_msg = re.findall("ERROR: .*\n",e.stdout.decode())
+                message = f"{self.MP_SOFTWARE.upper()} failed with error:\n"
+                for msg in error_msg:
+                    message += msg
+                raise Exception(message)
