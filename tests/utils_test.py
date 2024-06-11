@@ -32,7 +32,14 @@ def test_WriteFile():
     assert result == "This is a test."
 
 def test_ReadRandomLine():
-    assert True
+    results = []
+    for i in range(5):
+        results.append(ReadRandomLine("example_MSAs/test.fasta"))
+    with open("example_MSAs/test.fasta") as file:
+        expected = [line for line in file]
+        for line in results:
+            assert line in expected
+    assert len(set(results)) > 1 #checks all 5 lines aren't the same (will very occasionally fail even when line selection is random)
 
 def test_DetectFileFormat():
     results = []
