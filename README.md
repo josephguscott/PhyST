@@ -22,7 +22,7 @@ Dependent on program selection, PHYST is currently reliant on MPBoot, LVB, TNT, 
 - EMBOSS (if TNT used): https://emboss.sourceforge.net/download/
 - IQ-Tree: http://www.iqtree.org/
 
-All binaries are required within the 'lib/' folder.
+All binaries should be added to PATH.
 
 Currently, PHYST is ran using the following command:
 ~~~~
