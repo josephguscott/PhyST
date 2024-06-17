@@ -43,7 +43,6 @@ def DetectFileFormat(msa_path) -> str:
             'aln':'clustal','clustal':'clustal'}
     file_extension = file_extension[1].lower()
     if file_extension in formats.keys():
-        print(file_extension)
         msa_format = formats[file_extension]
         print(msa_format.upper() + ' format detected.')
     else: msa_format = 'phylip'
