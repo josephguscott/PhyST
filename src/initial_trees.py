@@ -82,19 +82,20 @@ class InitialTrees:
 
     def ParallelGenerateTrees(self, parsimony_command: str, tree_number: int) -> None:
         loop_parsimony_command = parsimony_command + self.MP_OUT_PREFIX + str(tree_number) + self.MP_OUT_SUFFIX
-        if self.MP_SOFTWARE == 'lvb':
-            random_seed = time.time()%1*100000 + random.randint(1,100000)
-            loop_parsimony_command += " -s " + str(random_seed)
-        elif self.MP_SOFTWARE == 'tnt':
+        if self.MP_SOFTWARE == 'tnt':
             if platform.startswith(('linux','darwin')):
-                loop_parsimony_command += ', < quit_tnt.txt'
-            else: loop_parsimony_command += '; < quit_tnt.txt'
-        try:
-            subprocess.run(loop_parsimony_command.split(), check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        except subprocess.CalledProcessError as e:
-            if self.MP_SOFTWARE == 'tnt':
-                raise Exception('TNT failed. See tnt.log for error message.')
-            else:
+                loop_parsimony_command += ', < quit_tnt.txt 2>&1'
+            else: loop_parsimony_command += '; < quit_tnt.txt 2>&1'
+            process = os.popen(loop_parsimony_command)
+            if re.search("Error",process.read()):
+                raise Exception('\n##########################################\nTNT failed. See tnt.log for error message.\n##########################################\n')
+        else:
+            if self.MP_SOFTWARE == 'lvb':
+                random_seed = time.time()%1*100000 + random.randint(1,100000)
+                loop_parsimony_command += " -s " + str(random_seed)
+            try:
+                subprocess.run(loop_parsimony_command.split(), check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            except subprocess.CalledProcessError as e:
                 error_msg = re.findall("ERROR: .*\n",e.stdout.decode())
                 message = f"{self.MP_SOFTWARE.upper()} failed with error:\n"
                 for msg in error_msg:
