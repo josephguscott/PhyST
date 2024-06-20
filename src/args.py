@@ -47,7 +47,7 @@ class Args:
         self.TNT_LEVEL = args['tnt_level']
         self.TNT_HITS = (1+args['tnt_level'])//2
         if self.TNT_HITS == 0:
-            self.TNT_HITS == 1
+            self.TNT_HITS = 1
 
         if args['max_parallel'] is True:
             self.HARDWARE = cpu_count()
