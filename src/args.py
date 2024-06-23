@@ -45,9 +45,6 @@ class Args:
         self.VERBOSE = args['verbose']
         self.CONFIG = Config(args['config']).config
         self.TNT_LEVEL = args['tnt_level']
-        self.TNT_HITS = (1+args['tnt_level'])//2
-        if self.TNT_HITS == 0:
-            self.TNT_HITS = 1
 
         if args['max_parallel'] is True:
             self.HARDWARE = cpu_count()
@@ -56,7 +53,5 @@ class Args:
 
         if args['init_software'] == 'lvb':
             self.MP_OUT_PREFIX, self.MP_OUT_SUFFIX = " -o tree.",".treefile"
-        elif args['init_software'] == 'tnt':
-            self.MP_OUT_PREFIX, self.MP_OUT_SUFFIX = "tree.",".treefile"
         else: self.MP_OUT_PREFIX, self.MP_OUT_SUFFIX = " -pre tree.",""
             
