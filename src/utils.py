@@ -25,7 +25,7 @@ def ReadRandomLine(file_path: str) -> None:
     with open(file_path) as file:
         for count in enumerate(file):
             pass
-    line_num = randrange(count[0]+1)
+    line_num = randrange(1,count[0]+2)
     output = linecache.getline(file_path, line_num)
     
     return output
