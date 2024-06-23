@@ -22,7 +22,7 @@ def TNT_input(msa_path: str) -> str:
         raise FileNotFoundError(f"MSA file {msa_path} not found. Please check and try again.\n")
     return tnt_input
 
-def GenerateTNTCommand(initial_software: str, msa_path: str, level: int, hits: int) -> str:
+def GenerateTNTCommand(initial_software: str, msa_path: str, level: int, numtrees: int) -> str:
     file_format = DetectFileFormat(msa_path)
     tnt_input = TNT_input(msa_path)
     process = os.popen(f"seqret {msa_path} -sformat1 {file_format} {tnt_input} -osformat2 hennig86 2>&1")
@@ -40,7 +40,7 @@ def GenerateTNTCommand(initial_software: str, msa_path: str, level: int, hits: i
     run_command = "run TNTsearch.run "
     pass_msa_path = f"input {tnt_input} "
     tnt_level = f"level {level} "
-    tnt_hits = f"hits {hits} "
-    command = software_path + run_command + pass_msa_path + tnt_level + tnt_hits + "treefile "
+    num_trees = f"numtrees {numtrees} "
+    command = software_path + run_command + pass_msa_path + tnt_level + num_trees
 
     return command
