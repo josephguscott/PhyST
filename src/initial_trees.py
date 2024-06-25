@@ -84,8 +84,11 @@ class InitialTrees:
         return initial_trees
 
     def WriteInitialTrees(self, initial_trees: list) -> None:
+        already_added = []
         for i in range(len(initial_trees)):
-            WriteFile("initial_trees.treefile", initial_trees[i])
+            if not initial_trees[i] in already_added:
+                WriteFile("initial_trees.treefile", initial_trees[i])
+                already_added.append(initial_trees[i])
 
     def ParallelGenerateTrees(self, parsimony_command: str, tree_number: int) -> None:
         loop_parsimony_command = parsimony_command + self.MP_OUT_PREFIX + str(tree_number) + self.MP_OUT_SUFFIX
