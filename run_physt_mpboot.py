@@ -8,4 +8,4 @@ for set in params:
 	seq_length = str(set[1])
 	branch_length = str(set[2])
 	sub_rate = str(set[3])
-	os.system(f"nohup experiment_mpboot/script.sh {taxa} {seq_length} {branch_length} {sub_rate} > experiment_mpboot/mpboot_{taxa}_{seq_length}_{branch_length}_{sub_rate}.out")
+	os.system(f"experiment_mpboot/script.sh {taxa} {seq_length} {branch_length} {sub_rate} > experiment_mpboot/mpboot_{taxa}_{seq_length}_{branch_length}_{sub_rate}.out 2>&1")
