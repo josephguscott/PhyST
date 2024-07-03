@@ -18,6 +18,7 @@ import random
 import time
 import re
 from multiprocessing.pool import Pool
+import time
 
 from filter_trees import FilterTrees
 from log import LOG
@@ -27,6 +28,7 @@ from tnt import GenerateTNTCommand
 from utils import ReadFile
 from utils import ReadRandomLine
 from utils import WriteFile
+from print import Print
 
 class InitialTrees:
     def __init__(self, args) -> None:
@@ -55,6 +57,8 @@ class InitialTrees:
         initial_trees = []
         tree_number = 0
 
+        mp_start = time.time()
+
         if self.MP_SOFTWARE == 'lvb':
             parsimony_command = GenerateLVBCommand(self.MP_SOFTWARE, self.MSA_INPUT_PATH)
         elif self.MP_SOFTWARE == 'tnt':
@@ -72,6 +76,12 @@ class InitialTrees:
             with Pool(processes = self.HARDWARE) as pool:
                 items =[(parsimony_command, i) for i in range(self.NUM_INIT_TREES)]
                 pool.starmap(self.ParallelGenerateTrees, items)
+
+        mp_end = time.time()
+        mp_runtime = mp_end - mp_start
+        LOG.info(f"###\nMP elapsed time ({self.MP_SOFTWARE}):")
+        Print.PrintRuntime(mp_runtime)
+        LOG.info("###")
 
         for tree_number in range(self.NUM_INIT_TREES):
             command = "cat tree." + str(tree_number) + ".treefile >> parsimony.treefile"
