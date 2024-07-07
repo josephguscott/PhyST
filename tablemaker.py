@@ -20,6 +20,6 @@ def filltable(software,rep):
         "CPU_usage":re.findall("CPU usage: (.*)",file)}
         for col in reps:
             table.loc[(software),(col[0],rep)] = results[col[0]]
-        print(table)
+        table.to_csv("RESULTS.csv")
     
 filltable("mpboot","rep1")
