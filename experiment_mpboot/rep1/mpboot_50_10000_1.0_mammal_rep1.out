@@ -1,0 +1,53 @@
+Wed Jul  3 04:37:27 PM UTC 2024
+
+######  #     # #       #  #####  ####### 
+#     # #     #  #     #  #     #    #    
+#     # #     #   #   #   #          #    
+######  #######    # #     #####     #    
+#       #     #     #           #    #    
+#       #     #     #     #     #    #    
+#       #     #     #      #####     #    
+
+PHYST (v1.4.0, March 2024) Built for MacOS x64-bit
+Developed by Joseph Guscott & David Bunn
+Barker Lab,
+School of Biological Science
+University of Edinburgh
+Copyright (c) 2024 Joseph Guscott
+
+PHYST configuration:
+  Initial Trees
+    Software: mpboot
+    MSA: ../sim_trees/alignment_50_10000_1.0_mammal.phy
+    Trees evaluated: 100
+    Trees retained: 5
+
+  Likelihood Analysis
+    Software: iqtree
+
+  Resources
+    Cores: 50
+
+Start time: 2024-07-03-16:37:27
+
+MPBoot provided by Hoang, et al., 2018; https://doi.org/10.1186/s12862-018-1131-3
+LVB provided by Barker, 2004; https://doi.org/10.1093/bioinformatics/btg402
+IQ-Tree provided by Minh, et al., 2020; https://doi.org/10.1093/molbev/msaa015
+
+Generating initial 100 initial trees using 50 cores
+###
+MP elapsed time (mpboot):
+Wall-clock time : 00:00:25
+###
+Obtaining the best 5 initial trees
+Highest scoring likelihood trees:
+Tree 1 : -408913.555
+Tree 2 : -408964.129
+iqtree2 -s ../sim_trees/alignment_50_10000_1.0_mammal.phy -t initial_trees_best.treefile -nt 50 -redo > /dev/null 2>&1
+Refined ML tree score: -408606.480
+Refined ML treefile: ../sim_trees/alignment_50_10000_1.0_mammal.phy.treefile
+Wall-clock time : 00:18:42
+55862.93user 49.69system 18:42.71elapsed 4980%CPU (0avgtext+0avgdata 149856maxresident)k
+0inputs+7496outputs (211major+3843837minor)pagefaults 0swaps
+EXIT STATUS: 0
+Wed Jul  3 04:56:10 PM UTC 2024

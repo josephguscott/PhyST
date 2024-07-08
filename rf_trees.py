@@ -12,7 +12,7 @@ def CompareTrees(prediction, ground_truth):
 	return rf, rf_max
 
 params = list(product([50,200],[10000,100000],[0.1,1.0],['equal','mammal']))
-with open("RF_mpboot_rep1.txt",'w') as f:
+with open("RF_mpboot_rep2.txt",'w') as f:
 	for set in params:
 		taxa = str(set[0])
 		seq_length = str(set[1])
@@ -23,9 +23,9 @@ with open("RF_mpboot_rep1.txt",'w') as f:
 		result = subprocess.run(['find','.','-name',prediction],capture_output=True,text=True)
 		prediction = result.stdout.strip()
 		rf, rf_max = CompareTrees(prediction,truth)
-		f.write(f"MPBoot rep1. Taxa = {taxa}, Seq. length = {seq_length}, Branch length = {branch_length}, Sub. rate = {sub_rate}.\n")
+		f.write(f"MPBoot rep2. Taxa = {taxa}, Seq. length = {seq_length}, Branch length = {branch_length}, Sub. rate = {sub_rate}.\n")
 		f.write(f"RF distance is {rf} over a total of {rf_max}\n")
-		physt_output = f"mpboot_{taxa}_{seq_length}_{branch_length}_{sub_rate}_rep1.out"
+		physt_output = f"mpboot_{taxa}_{seq_length}_{branch_length}_{sub_rate}_rep2.out"
 		with open(physt_output) as f2:
 			file = f2.read()
 			times = re.findall("(\d*\.\d*)(user|system)",file)

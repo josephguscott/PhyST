@@ -1,0 +1,112 @@
+MPBoot rep2. Taxa = 50, Seq. length = 10000, Branch length = 0.1, Sub. rate = equal.
+RF distance is 0 over a total of 94
+MP time: 00:00:19
+Total time: 00:07:43
+CPU time: 23011.36
+CPU usage: 4964%
+###
+MPBoot rep2. Taxa = 50, Seq. length = 10000, Branch length = 0.1, Sub. rate = mammal.
+RF distance is 0 over a total of 94
+MP time: 00:00:20
+Total time: 00:05:31
+CPU time: 16390.68
+CPU usage: 4945%
+###
+MPBoot rep2. Taxa = 50, Seq. length = 10000, Branch length = 1.0, Sub. rate = equal.
+RF distance is 0 over a total of 94
+MP time: 00:00:26
+Total time: 00:06:30
+CPU time: 19342.9
+CPU usage: 4945%
+###
+MPBoot rep2. Taxa = 50, Seq. length = 10000, Branch length = 1.0, Sub. rate = mammal.
+RF distance is 4 over a total of 94
+MP time: 00:00:25
+Total time: 00:16:26
+CPU time: 49137.82
+CPU usage: 4978%
+###
+MPBoot rep2. Taxa = 50, Seq. length = 100000, Branch length = 0.1, Sub. rate = equal.
+RF distance is 0 over a total of 94
+MP time: 00:06:22
+Total time: 00:32:59
+CPU time: 96379.61
+CPU usage: 4869%
+###
+MPBoot rep2. Taxa = 50, Seq. length = 100000, Branch length = 0.1, Sub. rate = mammal.
+RF distance is 0 over a total of 94
+MP time: 00:08:28
+Total time: 01:38:19
+CPU time: 290089.9
+CPU usage: 4917%
+###
+MPBoot rep2. Taxa = 50, Seq. length = 100000, Branch length = 1.0, Sub. rate = equal.
+RF distance is 0 over a total of 94
+MP time: 00:12:23
+Total time: 01:03:17
+CPU time: 185982.49
+CPU usage: 4896%
+###
+MPBoot rep2. Taxa = 50, Seq. length = 100000, Branch length = 1.0, Sub. rate = mammal.
+RF distance is 4 over a total of 94
+MP time: 00:08:15
+Total time: 01:56:37
+CPU time: 343127.86
+CPU usage: 4903%
+###
+MPBoot rep2. Taxa = 200, Seq. length = 10000, Branch length = 0.1, Sub. rate = equal.
+RF distance is 0 over a total of 394
+MP time: 00:03:45
+Total time: 00:44:38
+CPU time: 132239.79
+CPU usage: 4936%
+###
+MPBoot rep2. Taxa = 200, Seq. length = 10000, Branch length = 0.1, Sub. rate = mammal.
+RF distance is 6 over a total of 394
+MP time: 00:03:18
+Total time: 01:02:59
+CPU time: 187114.86000000002
+CPU usage: 4950%
+###
+MPBoot rep2. Taxa = 200, Seq. length = 10000, Branch length = 1.0, Sub. rate = equal.
+RF distance is 6 over a total of 394
+MP time: 00:04:29
+Total time: 00:44:46
+CPU time: 132303.24
+CPU usage: 4924%
+###
+MPBoot rep2. Taxa = 200, Seq. length = 10000, Branch length = 1.0, Sub. rate = mammal.
+RF distance is 12 over a total of 394
+MP time: 00:04:10
+Total time: 00:55:04
+CPU time: 163201.65
+CPU usage: 4938%
+###
+MPBoot rep2. Taxa = 200, Seq. length = 100000, Branch length = 0.1, Sub. rate = equal.
+RF distance is 2 over a total of 394
+MP time: 02:08:14
+Total time: 09:34:12
+CPU time: 1635854.32
+CPU usage: 4748%
+###
+MPBoot rep2. Taxa = 200, Seq. length = 100000, Branch length = 0.1, Sub. rate = mammal.
+RF distance is 6 over a total of 394
+MP time: 02:22:53
+Total time: 13:19:00
+CPU time: 2280004.33
+CPU usage: 4755%
+###
+MPBoot rep2. Taxa = 200, Seq. length = 100000, Branch length = 1.0, Sub. rate = equal.
+RF distance is 0 over a total of 394
+MP time: 02:30:21
+Total time: 07:33:56
+CPU time: 1305790.23
+CPU usage: 4794%
+###
+MPBoot rep2. Taxa = 200, Seq. length = 100000, Branch length = 1.0, Sub. rate = mammal.
+RF distance is 4 over a total of 394
+MP time: 02:23:20
+Total time: 14:48:25
+CPU time: 2554241.46
+CPU usage: 4791%
+###

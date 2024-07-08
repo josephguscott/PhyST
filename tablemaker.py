@@ -23,3 +23,4 @@ def filltable(software,rep):
         table.to_csv("RESULTS.csv")
     
 filltable("mpboot","rep1")
+filltable("mpboot","rep2")
