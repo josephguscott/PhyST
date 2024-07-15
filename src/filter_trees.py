@@ -34,7 +34,9 @@ class FilterTrees:
         os.system(evaluate_command)
         best_trees_dict = self.GetBestTreesDictionary()
 
-        best_tree_numbers = dict(itertools.islice(best_trees_dict.items(), self.NUM_MP_TREES))
+        num_mp_trees = min(self.NUM_MP_TREES, len(best_trees_dict))
+
+        best_tree_numbers = dict(itertools.islice(best_trees_dict.items(), num_mp_trees))
 
         LOG.info('Highest scoring likelihood trees:')
 
@@ -63,10 +65,12 @@ class FilterTrees:
         lines = []
         dict_list = []
 
+        num_mp_trees = min(self.NUM_MP_TREES, len(best_trees_number)) 
+
         for key in best_trees_number:
             dict_list.append(key[-1])
 
-        for i in range(self.NUM_MP_TREES):
+        for i in range(num_mp_trees):
             line_numbers.append(int(dict_list[i]))
 
         for i in line_numbers:
@@ -77,7 +81,7 @@ class FilterTrees:
             for i in lines:
                 fp.write("%s\n" % i)
 
-        for i in range(self.NUM_MP_TREES):
+        for i in range(num_mp_trees):
             j = str(i + 1)
             file_name = "initial_trees_best_" + j + ".treefile"
 

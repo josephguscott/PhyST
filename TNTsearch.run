@@ -1,0 +1,262 @@
+macro - ;
+macreport - ; 
+report - ;
+costs <; tshrink !;
+macro [ 10000 ; 
+macro *20 20000 ; 
+macro = ; 				/* HELP OF THE SCRIPT AT THE END OF THE FILE */
+log tnt.log;
+xwipe ; piwe - ;
+goto = %0 ;
+cls ; clbuffer; 
+warn- ; 
+var:     
+       input_file[50] 	 contargs 		
+	   guichschlvl		 helped
+	   parce			 jold	
+	   tofit          	 pace
+	   zratchet			 num_trees
+       ;
+taxname = ; 
+taxname +200 ;
+costs < ; 
+mxram 6000 ;
+/*set + ;*/ 
+set - ; /*ojooooo */ 
+set jold 100000 ; 
+set guichschlvl 1 ;
+set num_trees 100 ;
+
+silent - all ;
+if (!argnumber)
+	lquote = ; lquote [ ;
+	quote Use &34run TNTsearch&46run help&59&34&32 for help&46&10 ;
+	lquote - ;
+	errmsg No arguments were indicated by the user. 
+	The script requires at least one argument to run: the name of the input file. ;
+end
+set helped 0;
+if ((argnumber == 1) && (eqstring [ %1 help ])) 
+	goto = %0 ;
+	goto AYUDA ;
+end
+if ('helped' == 1)
+	macreport - ;
+	report = ;
+	macro - ;
+	silent - all ;
+	procedure / ;
+end
+lquote = ; lquote [ ;
+quote WARNING: keep in mind that the script TNTsearch.run requires at least one argument (input).&10 ;
+quote &32         Two optional arguments (level and numtrees) could be added.&10;
+quote &32         Every word or number other than the allowed arguments and options will be skipped during the execution.&10 ;
+quote &32         Be sure that you are running the script properly (use &34run TNTsearch&46run help&59&34&32 for help).&10 ;
+quote &10 ;
+lquote - ;
+if ((argnumber == 2) && (eqstring [ %1 input ]))
+	set input_file $%2 ;
+	set guichschlvl 1 ;
+	lquote = ; lquote [ ;
+	quote WARNING:&10;
+	quote &32&32&32&32Running the script with $input_file&32as input file.&10 ;
+	quote &32&32&32&32Running with type of search by default &40&61New technology search&41&46 &10 ;
+	quote &32&32&32&32Running with search level by default &40level &61&32 1&41&46 &10 ;
+	quote &32&32&32&32&32 (Note: the argument level used in this script is different than &10;
+	quote &32&32&32&32&32 the option level of the native TNT command xmult) &10;
+	quote &32&32&32&32Running with number of hits by default &40hits &61&32 1&41&46 &10 ;
+	quote &32&32&32&32Running using weights by default &40weights &61&32 equal&41&46 &10 ;
+	quote &32&32&32&32Running with gaps treatment by default &40gaps as missing&41&46 &10 ;
+	quote &32&32&32&32Resulting trees saved in Newick format&46 &10 &10;
+	quote &32&32&32&32Generating 'num_trees' trees by default&46 &10 &10;
+	lquote - ;
+end
+if (argnumber > 2)
+	set contargs 0 ;
+	loop=parseo 1 argnumber
+		if ('contargs' > 3)
+			endloop ;
+		else	
+			if (eqstring [ %(#parseo) input ])
+				set parce #parseo + 1 ;
+				set input_file $%('parce') ;
+				set contargs ++ ;
+			else 
+				if (eqstring [ %(#parseo) level ])
+					set parce #parseo + 1 ;
+					set guichschlvl %('parce') ;
+					set contargs ++ ;
+				else
+					if (eqstring [ %(#parseo) numtrees ])
+						set parce #parseo + 1 ;
+						set num_trees %('parce');
+						set num_trees -- ;
+						set contargs ++ ;
+				end
+			end
+		end
+	stop
+	lquote = ; lquote [ ;
+	if ('contargs' == 3)
+		quote Running the script with all the arguments indicated by the user&58 &10 ;
+	else
+		quote Running the script with 'contargs' arguments indicated by the user&58 &10 ;
+	end
+	quote &32&32&32&32Input file &61&32 $input_file &10;
+	quote &32&32&32&32Type of search &61&32 new technology search &10;
+	quote &32&32&32&32Level of search &61&32 'guichschlvl' &10;
+	quote &32&32&32&32&32 (Warning: the argument level used in this script is different than &10;
+	quote &32&32&32&32&32 the option level of the native TNT command xmult) &10;
+	quote &32&32&32&32Number of hits &61&32 1 &10;
+	quote &32&32&32&32Weighting against homoplasy &61&32 equally weighted parsimony &10;
+	quote &32&32&32&32Gaps are treated as missing entries &10;
+	quote &32&32&32&32Output resulting trees saved as Newick format &10;
+	quote &32&32&32&32Outgroup &61&32 Default &10;
+	quote &32&32&32&32Number of trees generated &61&32 'num_trees' &10 &10;
+	lquote - ;
+end
+
+
+
+/* DEFINE SETTINGS */ 
+
+nstates nogaps ;
+
+
+/* READ DATASET */ 
+procedure $input_file ; 
+hold 10000 ;   
+
+/* PERFORM SEARCHES */ 
+/* Drift modified accoding to the N° of chars */ 
+
+report = ; 
+
+sectsch: slack 25; 
+if (nchar > 50000 ) 
+	drift: noequals ; 
+	if (nchar > 2000000) 
+		drift: giveup 50 ; 
+	else
+		set pace 49 * ( (( (nchar +1 ) - 50000) / (2000000 - 5000)) )  ;
+		set pace 99 - 'pace' ;  
+		macfloat 0 ; 
+		drift: giveup 'pace' ; 
+		macfloat 3 ; 
+	end
+else
+	drift: giveup 99 ; 
+end 
+if ( nchar < 25000) 
+	set tofit 1 ; 
+else
+	if (nchar > 250000 )
+		set tofit 100 ; 
+	else 
+		set tofit  1 + (99 * ((( (nchar + 1 ) - 25000) / (250000 - 25000)))) ; 
+	end 
+end 
+drift: fitdiff 'tofit' rfitdiff 0.1 ;
+goto nivel ;
+
+loop 0 'num_trees'
+	xmult = hits 1 ;
+	bbreak = fillonly ;
+	best 1 ;
+	export = tree.#1..treefile ;
+	keep 0 ;
+	stop
+
+
+report- ;
+lquote = ; lquote [ ;
+quote &10 ;
+lquote - ;
+silent - all ;  quote The script TNTsearch.run was successfully run! ;
+silent = all ;
+
+/* GENERATE OUTPUT */ 
+
+set - ; 
+
+silent - all ; quote - Most parsimonious trees saved to tree.X.treefile (Newick format)  ; silent = all ; 
+silent - all ; quote - Keeping in memory all MPTs  ; silent = all ; 
+
+goto - ; 
+ttags - ; 
+macreport - ;
+report = ;
+macro - ;
+silent - all ;
+procedure / ;
+
+label nivel ;
+if ('guichschlvl' > 10)
+	errms ERROR: the maximum level of searching strength is 10.
+	For help use: run TNTsearch.run help ;
+end
+if ( ('guichschlvl' == 0) | ('guichschlvl' == 1) | ('guichschlvl' == 2) )
+	set zratchet ('guichschlvl' * 4) ;
+	xmult: replications 1 fuse 3 ratchet 'zratchet' noxss rss css ;
+else
+	if ( ('guichschlvl' == 3) | ('guichschlvl' == 4) | ('guichschlvl' == 5) | ('guichschlvl' == 6) | ('guichschlvl' == 7) )
+		set zratchet 10 + (('guichschlvl'-3) * 2) ;
+		xmult: replications 1 fuse 6 ratchet 'zratchet' noxss rss css ;
+	else
+		if ( ('guichschlvl' == 8) | ('guichschlvl' == 9) | ('guichschlvl' == 10) )
+			set zratchet 12 + (('guichschlvl'-3) * 2) ;
+			xmult: replications 1 fuse 9 ratchet 'zratchet' noxss rss css ;
+		end
+	end
+end
+procedure / ;
+
+
+label AYUDA ;
+cls ; clbuffer ; 
+lquote = ; lquote [ ;
+silent - all ;
+/* =======================  HELP OF THE SCRIPT  ======================= */	
+quote
+&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61
+TNT script:  TNTsearch.run                                                              
+Updated:     2023-03-24.                                                                 
+Author:      Santiago A. Catalano, Ambrosio Torres and Pablo A. Goloboff.                                                        
+Mantainer:   Ambrosio Torres. <atorresgalvis@gmail.com>                              
+Depends:     TNT version 1.6
+             (Goloboff and Morales, 2023. doi: 10.1111/cla.12524).      
+License:     GPL (3). Citation: Torres et al. 2022. doi: 10.1111/cla.12477.                        
+Description: Performs phylogenetic inference for phylogenomic datasets. 
+             Analyses can be run using various algorithms. In all cases 
+             it is possible to define a level of search strength, from 0 
+             to 10. If the New Technology option is chosen, it is also 
+             possible to define the required number of hits to the 
+             minimum length. The script also incorporates the 
+             possibility of using different implied weighting schemes, 
+             for individual sites, complete genes, or 1st, 2nd, and 3rd 
+             positions collectively. The script also allows users to 
+             define treatment of gaps in alignments, and format of 
+             output files. When the script is run from TNT the Windows 
+             GUI version, a dialog box is opened to define the settings. 
+             In command-driven versions, the script must be run with 
+             arguments.
+Usage:       run TNTsearch.run input dataset.tnt level 2 hits 1 &59                  
+Arguments:   input    name of input file.
+             level    (optional) level of searching strength (0-10). The 
+                      fastest and least accurate is 0, the slowest and 
+                      most accurate is 10.
+             hits     (optional) number of hits to best length (1-5). 
+                      The fastest and least accurate option is 1, the 
+                      slowest and most accurate is 5.          
+&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61&61
+&10 ;
+lquote - ;
+silent = all ;
+set helped 1;
+if (windows)
+else
+	view ;
+end
+procedure / ;
+log /;
+/* ==================================================================== */
